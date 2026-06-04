@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { profile, siteMeta } from "@/lib/data";
 
+export const dynamic = "force-static";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: `${profile.name} — Senior Flutter Developer`,
