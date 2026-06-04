@@ -1,0 +1,12 @@
+1:"$Sreact.fragment"
+2:I[77258,["/_next/static/chunks/3pd0jqzolg2f7.js","/_next/static/chunks/29j428m-ddv30.js","/_next/static/chunks/1d4h-sglyo8ft.js","/_next/static/chunks/2ivgm-s-8g1zp.js"],"Hero"]
+3:I[95116,["/_next/static/chunks/3pd0jqzolg2f7.js","/_next/static/chunks/29j428m-ddv30.js","/_next/static/chunks/1d4h-sglyo8ft.js","/_next/static/chunks/2ivgm-s-8g1zp.js"],"About"]
+4:I[34506,["/_next/static/chunks/3pd0jqzolg2f7.js","/_next/static/chunks/29j428m-ddv30.js","/_next/static/chunks/1d4h-sglyo8ft.js","/_next/static/chunks/2ivgm-s-8g1zp.js"],"Experience"]
+5:I[13659,["/_next/static/chunks/3pd0jqzolg2f7.js","/_next/static/chunks/29j428m-ddv30.js","/_next/static/chunks/1d4h-sglyo8ft.js","/_next/static/chunks/2ivgm-s-8g1zp.js"],"Skills"]
+6:I[68264,["/_next/static/chunks/3pd0jqzolg2f7.js","/_next/static/chunks/29j428m-ddv30.js","/_next/static/chunks/1d4h-sglyo8ft.js","/_next/static/chunks/2ivgm-s-8g1zp.js"],"Projects"]
+7:I[88925,["/_next/static/chunks/3pd0jqzolg2f7.js","/_next/static/chunks/29j428m-ddv30.js","/_next/static/chunks/1d4h-sglyo8ft.js","/_next/static/chunks/2ivgm-s-8g1zp.js"],"Achievements"]
+8:I[47710,["/_next/static/chunks/3pd0jqzolg2f7.js","/_next/static/chunks/29j428m-ddv30.js","/_next/static/chunks/1d4h-sglyo8ft.js","/_next/static/chunks/2ivgm-s-8g1zp.js"],"Contact"]
+9:I[97367,["/_next/static/chunks/01s2fcppzy02d.js","/_next/static/chunks/14mumt5_n0xhi.js"],"OutletBoundary"]
+a:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[[["$","$L2",null,{}],["$","$L3",null,{}],["$","$L4",null,{}],["$","$L5",null,{}],["$","$L6",null,{}],["$","$L7",null,{}],["$","$L8",null,{}]],[["$","script","script-0",{"src":"/_next/static/chunks/1d4h-sglyo8ft.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/2ivgm-s-8g1zp.js","async":true}]],["$","$L9",null,{"children":["$","$a",null,{"name":"Next.MetadataOutlet","children":"$@b"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"uLf7gu2nbEqJaL_fqxtzK"}
+b:null

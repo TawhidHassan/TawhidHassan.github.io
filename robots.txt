@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://tawhidhassan.github.io
+Sitemap: https://tawhidhassan.github.io/sitemap.xml
