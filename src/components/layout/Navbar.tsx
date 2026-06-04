@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { navLinks, profile } from "@/lib/data";
@@ -53,8 +54,14 @@ export function Navbar() {
               href="#home"
               className="flex items-center gap-2 text-lg font-semibold tracking-tight"
             >
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent via-accent-2 to-accent-3 text-sm font-bold text-white">
-                {profile.initials}
+              <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-xl ring-1 ring-card-border">
+                <Image
+                  src="/sifat.png"
+                  alt="Sifat"
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                />
               </span>
               <span className="hidden sm:block">{profile.name}</span>
             </a>

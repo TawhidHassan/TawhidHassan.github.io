@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
-import { profile } from "@/lib/data";
 
 /**
  * Brief intro overlay: counts to 100, draws the initials, then curtains up.
@@ -43,11 +43,16 @@ export function Preloader() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="relative grid h-24 w-24 place-items-center rounded-3xl glass"
+            className="relative grid h-24 w-24 place-items-center overflow-hidden rounded-3xl glass"
           >
-            <span className="text-3xl font-semibold text-gradient font-[family-name:var(--font-display)]">
-              {profile.initials}
-            </span>
+            <Image
+              src="/sifat.png"
+              alt="Sifat"
+              fill
+              sizes="96px"
+              priority
+              className="object-cover"
+            />
             <motion.span
               className="absolute inset-0 rounded-3xl border-2 border-accent/50"
               animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0, 0.6] }}

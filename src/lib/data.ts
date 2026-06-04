@@ -79,7 +79,7 @@ export const socials: SocialLink[] = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/tawhid-hasna-sifat-400933220a/",
+    href: "https://www.linkedin.com/in/tawhid-hasna-sifat-40093320a/",
     handle: "Tawhid Hassan Sifat",
     icon: LinkedinIcon,
   },

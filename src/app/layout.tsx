@@ -61,10 +61,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/sifat.png", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico" },
     ],
-    apple: "/favicon.svg",
+    apple: "/sifat.png",
   },
   manifest: "/manifest.webmanifest",
 };
@@ -89,7 +90,7 @@ const jsonLd = {
   address: { "@type": "PostalAddress", addressLocality: "Dhaka", addressCountry: "BD" },
   sameAs: [
     "https://github.com/TawhidHassan",
-    "https://www.linkedin.com/in/tawhid-hasna-sifat-400933220a/",
+    "https://www.linkedin.com/in/tawhid-hasna-sifat-40093320a/",
   ],
 };
 
