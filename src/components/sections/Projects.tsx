@@ -6,12 +6,19 @@ import { projects, type Project } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { Magnetic } from "@/components/ui/MagneticButton";
-import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
+import { fadeInUp } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
-    <motion.article variants={fadeInUp} className="h-full">
+    <motion.article
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ delay: (index % 3) * 0.08 }}
+      className="h-full"
+    >
       <GlowCard className="h-full p-6 sm:p-7">
         <div className="flex h-full flex-col">
           {/* gradient cover */}
@@ -107,17 +114,11 @@ export function Projects() {
           description="Enterprise platforms, fintech apps, and consumer products live on the Play Store — built end-to-end with Flutter."
         />
 
-        <motion.div
-          variants={staggerContainer(0.1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -40,4 +40,4 @@ export const textReveal: Variants = {
 };
 
 /** Default viewport config for whileInView. */
-export const viewportOnce = { once: true, amount: 0.25 } as const;
+export const viewportOnce = { once: true, amount: 0.1 } as const;

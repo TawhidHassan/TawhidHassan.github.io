@@ -35,7 +35,7 @@ export function Hero() {
         className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.15fr_0.85fr]"
       >
         {/* Left: copy */}
-        <div className="flex flex-col items-start">
+        <div className="order-2 flex flex-col items-start lg:order-1">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,7 +125,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          className="relative mx-auto hidden aspect-square w-full max-w-sm lg:block"
+          className="relative order-1 mx-auto aspect-square w-full max-w-[260px] sm:max-w-xs lg:order-2 lg:max-w-sm"
         >
           <div className="absolute inset-0 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(var(--accent-rgb),0.5),transparent_40%)] blur-md" />
           <div className="absolute inset-3 rounded-full glass" />
@@ -135,7 +135,7 @@ export function Hero() {
               alt={`${profile.fullName} — ${profile.tagline}`}
               fill
               priority
-              sizes="(min-width: 1024px) 24rem, 0px"
+              sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 16rem"
               className="object-cover object-top"
             />
             <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
