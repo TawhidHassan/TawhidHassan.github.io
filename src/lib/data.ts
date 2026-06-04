@@ -452,6 +452,78 @@ export const projects: Project[] = [
     ],
     accent: "from-pink-500 via-rose-500 to-red-500",
   },
+  {
+    id: "instajob",
+    name: "InstaJob",
+    category: "On-Demand · Jobs",
+    description:
+      "Instant job-finding app connecting job seekers with nearby work in real time.",
+    longDescription:
+      "A real-time job marketplace that matches job seekers with instant work opportunities nearby — live listings, in-app applications, notifications, and location-aware matching.",
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.app.insta_employee&hl=en",
+    tech: ["Flutter", "Firebase", "Push Notifications", "Maps", "Location Tracking"],
+    metrics: [
+      { label: "Matching", value: "Real-time" },
+      { label: "Listings", value: "Live" },
+      { label: "Platform", value: "Android · iOS" },
+    ],
+    accent: "from-sky-500 via-blue-500 to-indigo-500",
+  },
+  {
+    id: "instajob-client",
+    name: "InstaJob Client",
+    category: "On-Demand · Hiring",
+    description:
+      "Instant employee-finding app letting employers hire nearby workers on demand.",
+    longDescription:
+      "The employer side of the InstaJob platform — post jobs, discover available workers nearby, and hire instantly with real-time matching, in-app chat, and notifications.",
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.aamarpa.user&hl=en",
+    tech: ["Flutter", "Firebase", "Push Notifications", "Maps", "REST APIs"],
+    metrics: [
+      { label: "Hiring", value: "On-demand" },
+      { label: "Matching", value: "Real-time" },
+      { label: "Platform", value: "Android · iOS" },
+    ],
+    accent: "from-teal-500 via-emerald-500 to-green-500",
+  },
+  {
+    id: "zahraan",
+    name: "Zahraan",
+    category: "Islamic · AI",
+    description:
+      "AI-powered Islamic app offering guidance, knowledge, and daily spiritual tools.",
+    longDescription:
+      "An AI-driven Islamic companion app delivering authentic guidance, Q&A, and daily spiritual tools — Quran, prayer reminders, and intelligent answers powered by AI integration.",
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.zahraan.zahraanAi&hl=en",
+    tech: ["Flutter", "AI Integration", "Firebase", "Push Notifications", "REST APIs"],
+    metrics: [
+      { label: "Engine", value: "AI-powered" },
+      { label: "Focus", value: "Islamic" },
+      { label: "Platform", value: "Android · iOS" },
+    ],
+    accent: "from-amber-500 via-yellow-500 to-lime-500",
+  },
+  {
+    id: "attendx",
+    name: "AttendX",
+    category: "Enterprise · Attendance",
+    description:
+      "Smart attendance app with face recognition for fast, contactless check-ins.",
+    longDescription:
+      "A smart attendance system using face recognition for accurate, contactless check-in and check-out — real-time tracking, location verification, and automated reporting for teams.",
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.actionad.actionad&hl=en",
+    tech: ["Flutter", "Face Recognition", "AI Integration", "Maps", "REST APIs"],
+    metrics: [
+      { label: "Auth", value: "Face ID" },
+      { label: "Check-in", value: "Contactless" },
+      { label: "Platform", value: "Android · iOS" },
+    ],
+    accent: "from-fuchsia-500 via-purple-500 to-violet-500",
+  },
 ];
 
 /* -------------------------------------------------------------------------- */
