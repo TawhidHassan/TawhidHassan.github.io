@@ -58,6 +58,7 @@ type ButtonProps = {
   type?: "button" | "submit";
   disabled?: boolean;
   ariaLabel?: string;
+  download?: boolean | string;
 };
 
 const base =
@@ -83,6 +84,7 @@ export function MagneticButton({
   type = "button",
   disabled,
   ariaLabel,
+  download,
 }: ButtonProps) {
   const [hover, setHover] = useState(false);
 
@@ -112,6 +114,7 @@ export function MagneticButton({
         <a
           href={href}
           aria-label={ariaLabel}
+          download={download}
           target={external ? "_blank" : undefined}
           rel={external ? "noopener noreferrer" : undefined}
         >

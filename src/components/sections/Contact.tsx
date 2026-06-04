@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Check, Loader2, Send } from "lucide-react";
+import { Check, Download, Loader2, Send } from "lucide-react";
 import { contactDetails, profile, socials } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlowCard } from "@/components/ui/GlowCard";
@@ -93,7 +93,16 @@ export function Contact() {
                   })}
                 </div>
 
-                <div className="mt-7 flex items-center gap-2 border-t border-card-border pt-6">
+                <a
+                  href="/Sifat_Tawhid_Hassan_CV.pdf"
+                  download
+                  className="mt-7 inline-flex items-center gap-2 rounded-xl border border-card-border bg-background-2/50 px-4 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+                >
+                  <Download size={16} />
+                  Download CV
+                </a>
+
+                <div className="mt-6 flex items-center gap-2 border-t border-card-border pt-6">
                   {socials.map((s) => (
                     <Magnetic key={s.label}>
                       <a

@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import Image from "next/image";
-import { ArrowDown, Mail, Sparkles } from "lucide-react";
+import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
 import { profile, socials } from "@/lib/data";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { Particles } from "@/components/ui/Particles";
@@ -89,6 +89,14 @@ export function Hero() {
             </MagneticButton>
             <MagneticButton href="#contact" variant="outline" icon={<Mail size={16} />}>
               Get in Touch
+            </MagneticButton>
+            <MagneticButton
+              href="/Sifat_Tawhid_Hassan_CV.pdf"
+              download
+              variant="outline"
+              icon={<Download size={16} />}
+            >
+              Download CV
             </MagneticButton>
           </motion.div>
 

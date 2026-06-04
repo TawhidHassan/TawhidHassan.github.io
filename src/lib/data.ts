@@ -106,12 +106,6 @@ export const contactDetails = [
     icon: Phone,
   },
   { label: "Location", value: profile.location, href: undefined, icon: MapPin },
-  {
-    label: "Portfolio",
-    value: "tawhidhassan.github.io",
-    href: "https://tawhidhassan.github.io/",
-    icon: Globe,
-  },
 ];
 
 /* -------------------------------------------------------------------------- */
