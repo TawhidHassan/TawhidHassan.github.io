@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+/* next-themes toggles the `dark` class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* -------------------------------------------------------------------------- */
+/*                              DESIGN TOKENS                                  */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  /* Light theme — clean, minimal, professional */
+  --background: #f6f7fb;
+  --background-2: #ffffff;
+  --foreground: #0a0a12;
+  --muted: #5b6172;
+  --card: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(10, 10, 20, 0.08);
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(10, 10, 20, 0.08);
+
+  --accent: #4f7cff; /* blue */
+  --accent-2: #8b5cf6; /* purple */
+  --accent-3: #06b6d4; /* cyan */
+  --accent-rgb: 79, 124, 255;
+
+  --grid: rgba(10, 10, 30, 0.04);
+}
+
+.dark {
+  /* Dark theme — deep black / dark gray gradients (DEFAULT) */
+  --background: #050509;
+  --background-2: #0a0a12;
+  --foreground: #f4f5fb;
+  --muted: #9094a6;
+  --card: rgba(20, 22, 34, 0.55);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --glass: rgba(18, 20, 32, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  --accent: #5b8cff; /* blue */
+  --accent-2: #a78bfa; /* purple */
+  --accent-3: #22d3ee; /* cyan */
+  --accent-rgb: 91, 140, 255;
+
+  --grid: rgba(255, 255, 255, 0.035);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            TAILWIND THEME MAP                               */
+/* -------------------------------------------------------------------------- */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-2: var(--background-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 32s linear infinite;
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 KEYFRAMES                                   */
+/* -------------------------------------------------------------------------- */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-24px) translateX(12px); }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 BASE LAYER                                  */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+  * {
+    border-color: var(--card-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.6s ease, color 0.6s ease;
+  }
+
+  ::selection {
+    background: rgba(var(--accent-rgb), 0.3);
+    color: var(--foreground);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--accent), var(--accent-2));
+    border-radius: 999px;
+    border: 2px solid var(--background);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              UTILITY LAYER                                  */
+/* -------------------------------------------------------------------------- */
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(
+      120deg,
+      var(--accent),
+      var(--accent-2),
+      var(--accent-3)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--glass-border);
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .mask-fade-edges {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      var(--muted) 0%,
+      var(--foreground) 50%,
+      var(--muted) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-shimmer);
+  }
+
+  /* Hide default cursor only on devices with a precise pointer */
+  @media (hover: hover) and (pointer: fine) {
+    .cursor-none-desktop,
+    .cursor-none-desktop * {
+      cursor: none;
+    }
+  }
+}
