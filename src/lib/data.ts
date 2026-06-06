@@ -118,6 +118,7 @@ export const navLinks = [
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Work", href: "#projects" },
+  { label: "Praise", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
@@ -590,6 +591,46 @@ export const education = [
     institution: "Shaikh Burhanuddin Post Graduate College",
     period: "2015 — 2017",
     result: "GPA 4.22",
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/*                                TESTIMONIALS                                 */
+/* -------------------------------------------------------------------------- */
+
+export type Testimonial = {
+  name: string;
+  initials: string;
+  role: string;
+  company: string;
+  meta?: string;
+  email?: string;
+  quote: string;
+  accent: string;
+};
+
+export const testimonials: Testimonial[] = [
+  {
+    name: "Mohsin Khan",
+    initials: "MK",
+    role: "CTO at Jachai",
+    company: "ex-iPay",
+    meta: "Fintech Expert",
+    email: "mohsin@upscalebd.com",
+    // TODO: replace with Mohsin's own words.
+    quote:
+      "Sifat is one of the most reliable Flutter engineers I've worked with — he ships fast, owns delivery end-to-end, and consistently raises the quality bar for the whole team.",
+    accent: "from-blue-500 to-indigo-500",
+  },
+  {
+    name: "Muhammad Arafat",
+    initials: "MA",
+    role: "Software Engineer",
+    company: "Pathao",
+    // TODO: replace with Arafat's own words.
+    quote:
+      "A sharp problem-solver and a calm presence under pressure. Sifat turns ambiguous requirements into polished, production-ready mobile features.",
+    accent: "from-violet-500 to-fuchsia-500",
   },
 ];
 

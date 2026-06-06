@@ -218,8 +218,8 @@ export function Hero() {
             ].map((b, i) => (
               <motion.span
                 key={b.label}
-                style={{ transform: "translateZ(110px)" }}
-                className={`absolute ${b.className} rounded-full glass px-3 py-1.5 text-xs font-medium text-foreground shadow-lg shadow-black/10`}
+                style={{ z: 120 }}
+                className={`absolute ${b.className} z-20 rounded-full glass px-3 py-1.5 text-xs font-medium text-foreground shadow-lg shadow-black/10`}
                 animate={{ y: [0, -10, 0] }}
                 transition={{
                   duration: 4 + i,
