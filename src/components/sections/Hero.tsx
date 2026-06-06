@@ -1,6 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from "motion/react";
 import { useRef } from "react";
 import Image from "next/image";
 import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
@@ -9,10 +15,13 @@ import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { Particles } from "@/components/ui/Particles";
 import { Typewriter } from "@/components/ui/Typewriter";
 import { MagneticButton, Magnetic } from "@/components/ui/MagneticButton";
+import { HudCorners, HudTag } from "@/components/ui/Hud";
+import { useIsDesktop } from "@/hooks/useMediaQuery";
 import { ease } from "@/lib/motion";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const isDesktop = useIsDesktop();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -20,6 +29,22 @@ export function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 180]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+
+  // Cursor-driven 3D tilt for the avatar stack.
+  const tiltX = useSpring(useMotionValue(0), { stiffness: 120, damping: 16 });
+  const tiltY = useSpring(useMotionValue(0), { stiffness: 120, damping: 16 });
+  const onAvatarMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDesktop) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    tiltY.set(px * 22);
+    tiltX.set(-py * 22);
+  };
+  const resetTilt = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
 
   return (
     <section
@@ -57,7 +82,7 @@ export function Hero() {
             className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl font-[family-name:var(--font-display)]"
           >
             Hi, I&apos;m{" "}
-            <span className="text-gradient">{profile.name}</span>
+            <span className="text-flow">{profile.name}</span>
           </motion.h1>
 
           <motion.div
@@ -128,48 +153,91 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: avatar */}
+        {/* Right: 3D avatar stack */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          className="relative order-1 mx-auto aspect-square w-full max-w-[260px] sm:max-w-xs lg:order-2 lg:max-w-sm"
+          onMouseMove={onAvatarMove}
+          onMouseLeave={resetTilt}
+          style={{ perspective: 1200 }}
+          className="relative order-1 mx-auto aspect-square w-full max-w-[280px] sm:max-w-xs lg:order-2 lg:max-w-sm"
         >
-          <div className="absolute inset-0 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(var(--accent-rgb),0.5),transparent_40%)] blur-md" />
-          <div className="absolute inset-3 rounded-full glass" />
-          <div className="absolute inset-6 overflow-hidden rounded-full bg-gradient-to-br from-background-2 to-background">
-            <Image
-              src="/sifat.png"
-              alt={`${profile.fullName} — ${profile.tagline}`}
-              fill
-              priority
-              sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 16rem"
-              className="object-cover object-top"
+          <motion.div
+            style={{
+              rotateX: tiltX,
+              rotateY: tiltY,
+              transformStyle: "preserve-3d",
+            }}
+            className="relative h-full w-full"
+          >
+            {/* rotating conic halo (deep back layer) */}
+            <div
+              style={{ transform: "translateZ(-80px)" }}
+              className="absolute inset-0 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(var(--accent-rgb),0.55),transparent_40%)] blur-md"
             />
-            <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
-          </div>
-
-          {/* floating badges */}
-          {[
-            { label: "Flutter", className: "left-0 top-10" },
-            { label: "5+ yrs", className: "right-0 top-24" },
-            { label: "20+ apps", className: "bottom-12 left-2" },
-            { label: "Android · iOS", className: "bottom-4 right-6" },
-          ].map((b, i) => (
-            <motion.span
-              key={b.label}
-              className={`absolute ${b.className} rounded-full glass px-3 py-1.5 text-xs font-medium text-foreground`}
-              animate={{ y: [0, -10, 0] }}
-              transition={{
-                duration: 4 + i,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.4,
-              }}
+            {/* pulsing glow */}
+            <div
+              style={{ transform: "translateZ(-40px)" }}
+              className="absolute inset-2 animate-glow-pulse rounded-full bg-[radial-gradient(circle,rgba(var(--accent-rgb),0.25),transparent_60%)] blur-2xl"
+            />
+            {/* glass plate */}
+            <div
+              style={{ transform: "translateZ(10px)" }}
+              className="absolute inset-3 rounded-full glass"
+            />
+            {/* dashed orbit ring */}
+            <div
+              style={{ transform: "translateZ(30px)" }}
+              className="absolute inset-1 animate-spin-slow rounded-full border border-dashed border-accent/25 [animation-direction:reverse]"
+            />
+            {/* photo */}
+            <div
+              style={{ transform: "translateZ(60px)" }}
+              className="absolute inset-6 overflow-hidden rounded-full bg-gradient-to-br from-background-2 to-background"
             >
-              {b.label}
-            </motion.span>
-          ))}
+              <Image
+                src="/sifat.png"
+                alt={`${profile.fullName} — ${profile.tagline}`}
+                fill
+                priority
+                sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 16rem"
+                className="object-cover object-top"
+              />
+              <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
+              {/* HUD scan sweep over the photo */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-12 animate-scan bg-gradient-to-b from-accent/25 to-transparent" />
+            </div>
+
+            {/* floating badges — raised highest in Z for parallax depth */}
+            {[
+              { label: "Flutter", className: "left-0 top-10" },
+              { label: "5+ yrs", className: "right-0 top-24" },
+              { label: "20+ apps", className: "bottom-12 left-2" },
+              { label: "Android · iOS", className: "bottom-4 right-6" },
+            ].map((b, i) => (
+              <motion.span
+                key={b.label}
+                style={{ transform: "translateZ(110px)" }}
+                className={`absolute ${b.className} rounded-full glass px-3 py-1.5 text-xs font-medium text-foreground shadow-lg shadow-black/10`}
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 4 + i,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.4,
+                }}
+              >
+                {b.label}
+              </motion.span>
+            ))}
+          </motion.div>
+
+          {/* HUD frame brackets */}
+          <HudCorners className="scale-110" />
+          <HudTag className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap">
+            SYSTEM_ONLINE · BUILD_READY
+          </HudTag>
         </motion.div>
       </motion.div>
 

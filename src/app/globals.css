@@ -71,6 +71,10 @@
   --animate-float: float 8s ease-in-out infinite;
   --animate-shimmer: shimmer 2.5s linear infinite;
   --animate-spin-slow: spin 14s linear infinite;
+  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
+  --animate-text-flow: text-flow 6s linear infinite;
+  --animate-grain: grain 0.6s steps(2) infinite;
+  --animate-scan: scan 5s linear infinite;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -92,6 +96,24 @@
 @keyframes shimmer {
   from { background-position: -200% 0; }
   to { background-position: 200% 0; }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes text-flow {
+  to { background-position: 200% center; }
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(3%, -5%); }
+  60% { transform: translate(-2%, 4%); }
+  80% { transform: translate(4%, 2%); }
+}
+@keyframes scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100vh); }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -221,5 +243,101 @@
     .cursor-none-desktop * {
       cursor: none;
     }
+  }
+
+  /* -------------------------- SPATIAL 3D ------------------------------ */
+
+  .perspective {
+    perspective: 1200px;
+  }
+  .perspective-near {
+    perspective: 800px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  /* Soft depth shadow that deepens on hover — gives cards a floating feel. */
+  .depth-shadow {
+    box-shadow:
+      0 1px 1px rgba(0, 0, 0, 0.04),
+      0 8px 24px -12px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dark .depth-shadow {
+    box-shadow:
+      0 1px 1px rgba(0, 0, 0, 0.4),
+      0 18px 50px -20px rgba(0, 0, 0, 0.8);
+  }
+  .group:hover .depth-shadow,
+  .depth-shadow:hover {
+    box-shadow:
+      0 1px 1px rgba(0, 0, 0, 0.04),
+      0 30px 70px -24px rgba(var(--accent-rgb), 0.35);
+  }
+
+  /* Animated, flowing gradient text. */
+  .text-flow {
+    background: linear-gradient(
+      110deg,
+      var(--accent),
+      var(--accent-2),
+      var(--accent-3),
+      var(--accent-2),
+      var(--accent)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: var(--animate-text-flow);
+  }
+
+  /* Neon glow for accent text/icons. */
+  .text-glow {
+    text-shadow: 0 0 18px rgba(var(--accent-rgb), 0.5);
+  }
+
+  /* Monospace HUD label, e.g. // SECTION_NAME */
+  .hud-label {
+    font-family: var(--font-mono), monospace;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Full-screen film grain + vignette overlay. */
+  .grain-overlay {
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: var(--animate-grain);
+    mix-blend-mode: overlay;
+  }
+  .vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 55;
+    background: radial-gradient(
+      120% 120% at 50% 40%,
+      transparent 55%,
+      rgba(0, 0, 0, 0.18) 100%
+    );
+  }
+  .dark .vignette {
+    background: radial-gradient(
+      120% 120% at 50% 35%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
   }
 }

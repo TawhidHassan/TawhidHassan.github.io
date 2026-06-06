@@ -57,7 +57,7 @@ export function About() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid gap-5 sm:grid-cols-2"
+            className="perspective grid gap-5 sm:grid-cols-2"
           >
             {about.highlights.map((h) => (
               <motion.div key={h.title} variants={fadeInUp}>

@@ -15,21 +15,27 @@ type GlowCardProps = {
   className?: string;
   tilt?: boolean;
   spotlight?: boolean;
+  glare?: boolean;
+  /** Max tilt in degrees. */
+  intensity?: number;
 };
 
 /**
- * Interactive card with a cursor-following spotlight and optional 3D tilt.
+ * Spatial card with cursor-following spotlight, glare sheen and 3D tilt.
+ * Children sit on a raised Z-plane so they appear to float above the surface.
  */
 export function GlowCard({
   children,
   className,
   tilt = true,
   spotlight = true,
+  glare = true,
+  intensity = 14,
 }: GlowCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isDesktop = useIsDesktop();
 
-  // pointer position (px) for the spotlight
+  // pointer position (px) for the spotlight + glare
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
 
@@ -45,8 +51,8 @@ export function GlowCard({
     mx.set(px);
     my.set(py);
     if (tilt) {
-      ry.set(((px / rect.width) - 0.5) * 10);
-      rx.set(-((py / rect.height) - 0.5) * 10);
+      ry.set((px / rect.width - 0.5) * intensity);
+      rx.set(-(py / rect.height - 0.5) * intensity);
     }
   };
 
@@ -55,7 +61,8 @@ export function GlowCard({
     ry.set(0);
   };
 
-  const background = useMotionTemplate`radial-gradient(280px circle at ${mx}px ${my}px, rgba(var(--accent-rgb),0.16), transparent 70%)`;
+  const background = useMotionTemplate`radial-gradient(280px circle at ${mx}px ${my}px, rgba(var(--accent-rgb),0.18), transparent 70%)`;
+  const glareBg = useMotionTemplate`radial-gradient(420px circle at ${mx}px ${my}px, rgba(255,255,255,0.14), transparent 60%)`;
 
   return (
     <motion.div
@@ -64,11 +71,17 @@ export function GlowCard({
       onMouseLeave={reset}
       style={
         tilt
-          ? { rotateX: rx, rotateY: ry, transformPerspective: 1000 }
+          ? {
+              rotateX: rx,
+              rotateY: ry,
+              transformPerspective: 1000,
+              transformStyle: "preserve-3d",
+            }
           : undefined
       }
+      whileHover={tilt && isDesktop ? { z: 30 } : undefined}
       className={cn(
-        "group relative overflow-hidden rounded-3xl border border-card-border bg-card backdrop-blur-xl",
+        "group depth-shadow relative overflow-hidden rounded-3xl border border-card-border bg-card backdrop-blur-xl",
         className
       )}
     >
@@ -79,11 +92,21 @@ export function GlowCard({
           style={{ background }}
         />
       )}
+      {glare && (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 mix-blend-soft-light transition-opacity duration-300 group-hover:opacity-100"
+          style={{ background: glareBg }}
+        />
+      )}
       {/* hairline gradient border on hover */}
       <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent/30 via-transparent to-accent-3/30 [mask:linear-gradient(#000,#000)_content-box,linear-gradient(#000,#000)] [mask-composite:exclude] p-px" />
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent/40 via-transparent to-accent-3/40 [mask:linear-gradient(#000,#000)_content-box,linear-gradient(#000,#000)] [mask-composite:exclude] p-px" />
       </div>
-      <div style={{ transform: "translateZ(40px)" }} className="relative h-full">
+      <div
+        style={{ transform: "translateZ(40px)", transformStyle: "preserve-3d" }}
+        className="relative h-full"
+      >
         {children}
       </div>
     </motion.div>

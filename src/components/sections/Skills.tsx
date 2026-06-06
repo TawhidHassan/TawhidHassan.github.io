@@ -1,45 +1,32 @@
 "use client";
 
-import { motion } from "motion/react";
-import { skillGroups, skillMarquee, type IconType } from "@/lib/data";
+import { skillGroups, skillMarquee, type SkillGroup } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { GlowCard } from "@/components/ui/GlowCard";
-import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
+import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 
-function SkillBar({
-  name,
-  level,
-  Icon,
-  delay,
-}: {
-  name: string;
-  level: number;
-  Icon: IconType;
-  delay: number;
-}) {
-  return (
-    <motion.div variants={fadeInUp} className="group">
-      <div className="mb-2 flex items-center justify-between">
-        <span className="flex items-center gap-2 text-sm font-medium">
-          <span className="text-accent transition-transform duration-300 group-hover:scale-110">
-            <Icon size={16} />
-          </span>
-          {name}
-        </span>
-        <span className="text-xs tabular-nums text-muted">{level}%</span>
-      </div>
-      <div className="h-2 overflow-hidden rounded-full bg-foreground/5">
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={viewportOnce}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay }}
-          className="h-full rounded-full bg-gradient-to-r from-accent via-accent-2 to-accent-3"
-        />
-      </div>
-    </motion.div>
+const avg = (g: SkillGroup) =>
+  Math.round(g.skills.reduce((a, s) => a + s.level, 0) / g.skills.length);
+
+/** Map skill categories onto the orbital timeline's node shape. */
+const skillsTimeline = skillGroups.map((g, i) => {
+  const energy = avg(g);
+  const id = i + 1;
+  const relatedIds = [id - 1, id + 1].filter(
+    (n) => n >= 1 && n <= skillGroups.length
   );
-}
+  return {
+    id,
+    title: g.category,
+    date: `${g.skills.length} skills`,
+    content: g.skills.map((s) => s.name).join(" · "),
+    category: g.category,
+    icon: g.skills[0].icon,
+    relatedIds,
+    status:
+      energy >= 90 ? "completed" : energy >= 82 ? "in-progress" : "pending",
+    energy,
+  } as const;
+});
 
 export function Skills() {
   return (
@@ -48,36 +35,13 @@ export function Skills() {
         <SectionHeading
           eyebrow="Capabilities"
           title="A toolkit honed in production."
-          description="From pixel-perfect Flutter UI to resilient backends and AI integrations — the full stack of shipping mobile products."
+          description="From pixel-perfect Flutter UI to resilient backends and AI integrations — the full stack of shipping mobile products. Tap a node to explore each domain."
         />
+      </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {skillGroups.map((group, gi) => (
-            <GlowCard key={group.category} tilt={false} className="p-7">
-              <h3 className="mb-6 flex items-center gap-3 text-sm font-semibold uppercase tracking-widest text-accent">
-                <span className="h-px w-6 bg-accent" />
-                {group.category}
-              </h3>
-              <motion.div
-                variants={staggerContainer(0.08)}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportOnce}
-                className="space-y-5"
-              >
-                {group.skills.map((s, si) => (
-                  <SkillBar
-                    key={s.name}
-                    name={s.name}
-                    level={s.level}
-                    Icon={s.icon}
-                    delay={0.1 + si * 0.05 + gi * 0.05}
-                  />
-                ))}
-              </motion.div>
-            </GlowCard>
-          ))}
-        </div>
+      {/* Interactive radial orbital map of capabilities */}
+      <div className="relative mt-12 overflow-hidden border-y border-card-border">
+        <RadialOrbitalTimeline timelineData={skillsTimeline} />
       </div>
 
       {/* Marquee ticker */}

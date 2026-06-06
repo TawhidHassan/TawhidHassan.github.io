@@ -32,9 +32,12 @@ export function SectionHeading({
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={viewportOnce}
-        className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-accent"
+        className="hud-label inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[11px] font-medium text-accent"
       >
-        <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
+          <span className="relative h-1.5 w-1.5 rounded-full bg-accent" />
+        </span>
         {eyebrow}
       </motion.span>
 

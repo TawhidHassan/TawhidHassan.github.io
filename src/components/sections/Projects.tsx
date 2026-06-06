@@ -6,6 +6,7 @@ import { projects, type Project } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { Magnetic } from "@/components/ui/MagneticButton";
+import { HudCorners } from "@/components/ui/Hud";
 import { fadeInUp } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -33,9 +34,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <span className="relative text-2xl font-bold tracking-tight text-white drop-shadow-sm font-[family-name:var(--font-display)]">
               {project.name}
             </span>
-            <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-black/20 text-xs font-semibold text-white backdrop-blur">
+            <span className="hud-label absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-black/20 text-[10px] font-semibold text-white backdrop-blur">
               0{index + 1}
             </span>
+            <HudCorners className="opacity-40" size={14} />
           </div>
 
           <span className="text-xs font-medium uppercase tracking-widest text-accent">
@@ -114,7 +116,7 @@ export function Projects() {
           description="Enterprise platforms, fintech apps, and consumer products live on the Play Store — built end-to-end with Flutter."
         />
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="perspective mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
           ))}

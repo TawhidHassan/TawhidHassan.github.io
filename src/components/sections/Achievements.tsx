@@ -17,15 +17,16 @@ export function Achievements() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="grid grid-cols-2 gap-4 rounded-3xl glass p-6 sm:gap-6 sm:p-8 lg:grid-cols-4"
+          className="depth-shadow relative grid grid-cols-2 gap-4 overflow-hidden rounded-3xl glass p-6 sm:gap-6 sm:p-8 lg:grid-cols-4"
         >
+          <div aria-hidden className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
           {stats.map((s) => (
             <motion.div
               key={s.label}
               variants={fadeInUp}
-              className="flex flex-col items-center text-center"
+              className="relative z-10 flex flex-col items-center text-center"
             >
-              <div className="text-4xl font-bold text-gradient sm:text-5xl font-[family-name:var(--font-display)]">
+              <div className="text-4xl font-bold text-flow sm:text-5xl font-[family-name:var(--font-display)]">
                 <CountUp value={Number(s.value)} suffix={s.suffix} />
               </div>
               <div className="mt-2 text-xs font-medium uppercase tracking-wide text-muted sm:text-sm">
@@ -47,7 +48,7 @@ export function Achievements() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="perspective mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {achievements.map((a) => (
               <motion.div key={a.title} variants={fadeInUp}>
