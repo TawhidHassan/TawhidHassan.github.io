@@ -24,9 +24,7 @@ const locations = [
 export function WorldMap() {
   return (
     <section id="global" className="relative overflow-hidden py-16 sm:py-28 lg:py-36">
-      <div className="pointer-events-none absolute inset-0 text-accent opacity-[0.12]">
-        <BackgroundPaths className="absolute inset-0" />
-      </div>
+      <BackgroundPaths />
 
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHeading

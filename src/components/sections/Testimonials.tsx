@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Quote, Mail } from "lucide-react";
 import { testimonials } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { HudTag } from "@/components/ui/Hud";
 import { Magnetic } from "@/components/ui/MagneticButton";
@@ -12,6 +13,8 @@ import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 export function Testimonials() {
   return (
     <section id="testimonials" className="relative py-16 sm:py-28 lg:py-36">
+      <BackgroundPaths />
+
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Testimonials"

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Check, Download, Loader2, Send } from "lucide-react";
 import { contactDetails, profile, socials } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { MagneticButton, Magnetic } from "@/components/ui/MagneticButton";
 import { Reveal } from "@/components/ui/Reveal";
@@ -42,6 +43,8 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative py-16 sm:py-28 lg:py-36">
+      <BackgroundPaths />
+
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Get in Touch"

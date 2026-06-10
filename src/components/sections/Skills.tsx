@@ -2,6 +2,7 @@
 
 import { skillGroups, skillMarquee, type SkillGroup } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BackgroundPaths } from "@/components/ui/background-paths";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 
 const avg = (g: SkillGroup) =>
@@ -31,6 +32,8 @@ const skillsTimeline = skillGroups.map((g, i) => {
 export function Skills() {
   return (
     <section id="skills" className="relative overflow-hidden py-16 sm:py-28 lg:py-36">
+      <BackgroundPaths />
+
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Capabilities"

@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 /**
- * Animated flowing SVG paths. Pure background layer — drop it inside any
- * `relative` container with `overflow-hidden`. Inherits text color via
- * `currentColor`, so set a `text-*` class on a wrapper to tint it.
+ * One direction of animated flowing SVG paths. Inherits `currentColor`, so the
+ * parent sets the tint via a `text-*` class.
  */
-export function FloatingPaths({ position }: { position: number }) {
+function FloatingPaths({ position }: { position: number }) {
   const paths = Array.from({ length: 36 }, (_, i) => ({
     id: i,
     d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${
@@ -21,42 +21,51 @@ export function FloatingPaths({ position }: { position: number }) {
   }));
 
   return (
-    <div className="pointer-events-none absolute inset-0">
-      <svg
-        className="h-full w-full text-foreground"
-        viewBox="0 0 696 316"
-        fill="none"
-      >
-        <title>Background Paths</title>
-        {paths.map((path) => (
-          <motion.path
-            key={path.id}
-            d={path.d}
-            stroke="currentColor"
-            strokeWidth={path.width}
-            strokeOpacity={0.1 + path.id * 0.03}
-            initial={{ pathLength: 0.3, opacity: 0.6 }}
-            animate={{
-              pathLength: 1,
-              opacity: [0.3, 0.6, 0.3],
-              pathOffset: [0, 1, 0],
-            }}
-            transition={{
-              duration: 20 + Math.random() * 10,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-          />
-        ))}
-      </svg>
-    </div>
+    <svg
+      className="absolute inset-0 h-full w-full"
+      viewBox="0 0 696 316"
+      fill="none"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <title>Background Paths</title>
+      {paths.map((path) => (
+        <motion.path
+          key={path.id}
+          d={path.d}
+          stroke="currentColor"
+          strokeWidth={path.width}
+          strokeOpacity={0.1 + path.id * 0.03}
+          initial={{ pathLength: 0.3, opacity: 0.6 }}
+          animate={{
+            pathLength: 1,
+            opacity: [0.3, 0.6, 0.3],
+            pathOffset: [0, 1, 0],
+          }}
+          transition={{
+            duration: 20 + Math.random() * 10,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear",
+          }}
+        />
+      ))}
+    </svg>
   );
 }
 
-/** Both directions of flowing paths, ready to drop behind content. */
+/**
+ * Drop-in animated background layer for a section. Place as the first child of
+ * a `relative` container — it sits behind static content via `-z-10` and is
+ * tinted with the accent color at low opacity.
+ */
 export function BackgroundPaths({ className }: { className?: string }) {
   return (
-    <div className={className ?? "absolute inset-0 opacity-60"}>
+    <div
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute inset-0 -z-10 overflow-hidden text-accent opacity-[0.13]",
+        className
+      )}
+    >
       <FloatingPaths position={1} />
       <FloatingPaths position={-1} />
     </div>

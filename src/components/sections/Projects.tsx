@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowUpRight, Play } from "lucide-react";
 import { projects, type Project } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { HudCorners } from "@/components/ui/Hud";
@@ -109,6 +110,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 export function Projects() {
   return (
     <section id="projects" className="relative py-16 sm:py-28 lg:py-36">
+      <BackgroundPaths />
+
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Featured Work"

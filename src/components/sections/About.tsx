@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { about, education, profile } from "@/lib/data";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/motion";
@@ -10,6 +11,8 @@ import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/motion";
 export function About() {
   return (
     <section id="about" className="relative py-16 sm:py-28 lg:py-36">
+      <BackgroundPaths />
+
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="About Me"
