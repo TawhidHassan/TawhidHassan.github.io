@@ -36,6 +36,7 @@ export default function RadialOrbitalTimeline({
     y: 0,
   });
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
+  const [radius, setRadius] = useState<number>(200);
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -83,6 +84,16 @@ export default function RadialOrbitalTimeline({
   };
 
   useEffect(() => {
+    const updateRadius = () => {
+      const w = window.innerWidth;
+      setRadius(w < 480 ? 110 : w < 768 ? 150 : 200);
+    };
+    updateRadius();
+    window.addEventListener("resize", updateRadius);
+    return () => window.removeEventListener("resize", updateRadius);
+  }, []);
+
+  useEffect(() => {
     let rotationTimer: NodeJS.Timeout;
 
     if (autoRotate && viewMode === "orbital") {
@@ -113,7 +124,6 @@ export default function RadialOrbitalTimeline({
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 200;
     const radian = (angle * Math.PI) / 180;
 
     const x = radius * Math.cos(radian) + centerOffset.x;
@@ -152,9 +162,11 @@ export default function RadialOrbitalTimeline({
     }
   };
 
+  const activeItem = timelineData.find((item) => expandedItems[item.id]);
+
   return (
     <div
-      className="w-full h-screen flex flex-col items-center justify-center bg-background overflow-hidden"
+      className="w-full h-[420px] sm:h-[520px] md:h-[600px] flex flex-col items-center justify-center bg-background overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
@@ -176,7 +188,10 @@ export default function RadialOrbitalTimeline({
             <div className="w-8 h-8 rounded-full bg-background/80 backdrop-blur-md"></div>
           </div>
 
-          <div className="absolute w-96 h-96 rounded-full border border-foreground/10"></div>
+          <div
+            className="absolute rounded-full border border-foreground/10"
+            style={{ width: radius * 2, height: radius * 2 }}
+          ></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
@@ -253,93 +268,93 @@ export default function RadialOrbitalTimeline({
                   {item.title}
                 </div>
 
-                {isExpanded && (
-                  <Card className="absolute top-20 left-1/2 -translate-x-1/2 w-64 glass border-card-border shadow-xl shadow-black/10 overflow-visible">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-px h-3 bg-accent/50"></div>
-                    <CardHeader className="pb-2">
-                      <div className="flex justify-between items-center">
-                        <Badge
-                          className={`px-2 text-xs ${getStatusStyles(
-                            item.status
-                          )}`}
-                        >
-                          {item.status === "completed"
-                            ? "COMPLETE"
-                            : item.status === "in-progress"
-                            ? "IN PROGRESS"
-                            : "PENDING"}
-                        </Badge>
-                        <span className="text-xs font-mono text-muted">
-                          {item.date}
-                        </span>
-                      </div>
-                      <CardTitle className="text-sm mt-2 text-foreground">
-                        {item.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-xs text-muted">
-                      <p>{item.content}</p>
-
-                      <div className="mt-4 pt-3 border-t border-card-border">
-                        <div className="flex justify-between items-center text-xs mb-1">
-                          <span className="flex items-center text-foreground">
-                            <Zap size={10} className="mr-1 text-accent" />
-                            Energy Level
-                          </span>
-                          <span className="font-mono text-foreground">
-                            {item.energy}%
-                          </span>
-                        </div>
-                        <div className="w-full h-1 bg-foreground/10 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-accent via-accent-2 to-accent-3"
-                            style={{ width: `${item.energy}%` }}
-                          ></div>
-                        </div>
-                      </div>
-
-                      {item.relatedIds.length > 0 && (
-                        <div className="mt-4 pt-3 border-t border-card-border">
-                          <div className="flex items-center mb-2">
-                            <Link size={10} className="text-accent mr-1" />
-                            <h4 className="text-xs uppercase tracking-wider font-medium text-muted">
-                              Connected Nodes
-                            </h4>
-                          </div>
-                          <div className="flex flex-wrap gap-1">
-                            {item.relatedIds.map((relatedId) => {
-                              const relatedItem = timelineData.find(
-                                (i) => i.id === relatedId
-                              );
-                              return (
-                                <Button
-                                  key={relatedId}
-                                  variant="outline"
-                                  size="sm"
-                                  className="flex items-center h-6 px-2 py-0 text-xs rounded-md border-card-border bg-transparent hover:bg-foreground/10 text-muted hover:text-foreground transition-all"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleItem(relatedId);
-                                  }}
-                                >
-                                  {relatedItem?.title}
-                                  <ArrowRight
-                                    size={8}
-                                    className="ml-1 text-accent"
-                                  />
-                                </Button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                )}
               </div>
             );
           })}
         </div>
+
+        {activeItem && (
+          <Card
+            className="absolute left-1/2 -translate-x-1/2 bottom-3 z-[300] w-[min(16rem,calc(100%-1.5rem))] max-h-[60%] overflow-y-auto glass border-card-border shadow-xl shadow-black/10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CardHeader className="pb-2">
+              <div className="flex justify-between items-center">
+                <Badge
+                  className={`px-2 text-xs ${getStatusStyles(
+                    activeItem.status
+                  )}`}
+                >
+                  {activeItem.status === "completed"
+                    ? "COMPLETE"
+                    : activeItem.status === "in-progress"
+                    ? "IN PROGRESS"
+                    : "PENDING"}
+                </Badge>
+                <span className="text-xs font-mono text-muted">
+                  {activeItem.date}
+                </span>
+              </div>
+              <CardTitle className="text-sm mt-2 text-foreground">
+                {activeItem.title}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-xs text-muted">
+              <p>{activeItem.content}</p>
+
+              <div className="mt-4 pt-3 border-t border-card-border">
+                <div className="flex justify-between items-center text-xs mb-1">
+                  <span className="flex items-center text-foreground">
+                    <Zap size={10} className="mr-1 text-accent" />
+                    Energy Level
+                  </span>
+                  <span className="font-mono text-foreground">
+                    {activeItem.energy}%
+                  </span>
+                </div>
+                <div className="w-full h-1 bg-foreground/10 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-accent via-accent-2 to-accent-3"
+                    style={{ width: `${activeItem.energy}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {activeItem.relatedIds.length > 0 && (
+                <div className="mt-4 pt-3 border-t border-card-border">
+                  <div className="flex items-center mb-2">
+                    <Link size={10} className="text-accent mr-1" />
+                    <h4 className="text-xs uppercase tracking-wider font-medium text-muted">
+                      Connected Nodes
+                    </h4>
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {activeItem.relatedIds.map((relatedId) => {
+                      const relatedItem = timelineData.find(
+                        (i) => i.id === relatedId
+                      );
+                      return (
+                        <Button
+                          key={relatedId}
+                          variant="outline"
+                          size="sm"
+                          className="flex items-center h-6 px-2 py-0 text-xs rounded-md border-card-border bg-transparent hover:bg-foreground/10 text-muted hover:text-foreground transition-all"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleItem(relatedId);
+                          }}
+                        >
+                          {relatedItem?.title}
+                          <ArrowRight size={8} className="ml-1 text-accent" />
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
