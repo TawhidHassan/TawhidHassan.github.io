@@ -39,7 +39,7 @@ export function Experience() {
   );
 
   return (
-    <section id="experience" className="relative py-16 sm:py-28 lg:py-36">
+    <section id="experience" className="relative py-12 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-5xl px-6">

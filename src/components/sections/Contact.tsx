@@ -42,7 +42,7 @@ export function Contact() {
     "w-full rounded-xl border border-card-border bg-background-2/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20";
 
   return (
-    <section id="contact" className="relative py-16 sm:py-28 lg:py-36">
+    <section id="contact" className="relative py-12 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">

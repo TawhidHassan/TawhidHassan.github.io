@@ -10,7 +10,7 @@ import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/motion";
 
 export function About() {
   return (
-    <section id="about" className="relative py-16 sm:py-28 lg:py-36">
+    <section id="about" className="relative py-12 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
@@ -20,12 +20,12 @@ export function About() {
           align="left"
         />
 
-        <div className="mt-14 grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="mt-8 grid gap-8 sm:mt-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
           {/* Story */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {about.paragraphs.map((p, i) => (
               <Reveal key={i} delay={i * 0.08}>
-                <p className="text-lg leading-relaxed text-muted">{p}</p>
+                <p className="text-base leading-relaxed text-muted sm:text-lg">{p}</p>
               </Reveal>
             ))}
 

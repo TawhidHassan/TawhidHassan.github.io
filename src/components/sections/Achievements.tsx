@@ -10,7 +10,7 @@ import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 export function Achievements() {
   return (
-    <section id="achievements" className="relative py-16 sm:py-28 lg:py-36">
+    <section id="achievements" className="relative py-12 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
@@ -39,7 +39,7 @@ export function Achievements() {
           ))}
         </motion.div>
 
-        <div className="mt-14 sm:mt-24">
+        <div className="mt-10 sm:mt-24">
           <SectionHeading
             eyebrow="Impact"
             title="Proven across scale & industries."

@@ -12,7 +12,7 @@ import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="relative py-16 sm:py-28 lg:py-36">
+    <section id="testimonials" className="relative py-12 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
