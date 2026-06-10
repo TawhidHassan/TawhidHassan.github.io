@@ -7,6 +7,7 @@ import {
 
 /** Brands & organizations I've delivered work for. */
 const clients: CustomerLogo[] = [
+  { alt: "Sheba xyz" },
   { alt: "Unilever Bangladesh" },
   { alt: "Samsung Bangladesh" },
   { alt: "Regal Furniture" },

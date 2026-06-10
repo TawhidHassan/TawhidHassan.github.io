@@ -342,15 +342,15 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "hr-management",
-    name: "HR Management App",
+    id: "hrx",
+    name: "Hrx",
     category: "Enterprise · HR",
     description:
       "Enterprise HR platform with attendance, employee management, workflows, and automation.",
     longDescription:
       "A complete HR management suite handling attendance tracking, employee lifecycle, approval workflows, and process automation for large organizations.",
     playStore:
-      "https://play.google.com/store/apps/details?id=xyz.sheba.emanager",
+      "https://play.google.com/store/apps/details?id=com.hrx.hrx&hl=en",
     tech: ["Flutter", "GetX", "REST APIs", "Firebase", "Clean Architecture"],
     metrics: [
       { label: "Modules", value: "12+" },
@@ -358,6 +358,24 @@ export const projects: Project[] = [
       { label: "Scale", value: "Enterprise" },
     ],
     accent: "from-blue-500 via-indigo-500 to-purple-500",
+  },
+  {
+    id: "digigo",
+    name: "DigiGO",
+    category: "Enterprise · HR",
+    description:
+      "Next-gen HR management app that simplifies how you manage people and processes.",
+    longDescription:
+      "DigiGO is a next-gen HR management app designed to simplify how you manage people and processes. Whether you're running a small team or a growing business, DigiGO puts all essential HR tools in one place.",
+    playStore:
+      "https://play.google.com/store/apps/details?id=xyz.sheba.emanager&hl=en",
+    tech: ["Flutter", "REST APIs", "Firebase", "Clean Architecture"],
+    metrics: [
+      { label: "Tools", value: "All-in-one" },
+      { label: "Platform", value: "Android · iOS" },
+      { label: "Scale", value: "SMB → Enterprise" },
+    ],
+    accent: "from-indigo-500 via-blue-500 to-cyan-500",
   },
   {
     id: "ecommerce",
