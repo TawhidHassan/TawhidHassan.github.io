@@ -29,6 +29,8 @@ const skillsTimeline = skillGroups.map((g, i) => {
   } as const;
 });
 
+
+
 export function Skills() {
   return (
     <section id="skills" className="relative overflow-hidden py-10 sm:py-28 lg:py-36">
