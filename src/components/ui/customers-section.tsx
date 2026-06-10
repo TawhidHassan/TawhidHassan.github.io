@@ -52,21 +52,26 @@ export function CustomersSection({
           },
           ...transitionVariants,
         }}
-        className="mx-auto grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 sm:gap-x-10 sm:gap-y-10 lg:grid-cols-4"
+        className="mx-auto grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
       >
         {customers.map((logo, index) => (
-          <div key={index} className="flex items-center justify-center">
+          <div
+            key={index}
+            className="group/card relative flex min-h-[76px] items-center justify-center overflow-hidden rounded-2xl border border-card-border glass px-4 py-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10"
+          >
+            {/* accent glow on hover */}
+            <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_0%,rgba(var(--accent-rgb),0.16),transparent_60%)] opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
             {logo.src ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                className="mx-auto h-auto w-fit opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 dark:invert"
+                className="mx-auto h-auto w-fit opacity-80 grayscale transition duration-300 group-hover/card:opacity-100 group-hover/card:grayscale-0 dark:invert"
                 src={logo.src}
                 alt={logo.alt}
                 height={logo.height}
                 width="auto"
               />
             ) : (
-              <span className="text-center text-base font-semibold tracking-tight text-muted transition-colors duration-300 hover:text-foreground sm:text-lg">
+              <span className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-sm font-semibold tracking-tight text-transparent transition-colors duration-300 group-hover/card:from-accent group-hover/card:to-accent-2 sm:text-base">
                 {logo.alt}
               </span>
             )}
