@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight, Play } from "lucide-react";
 import { projects, type Project } from "@/lib/data";
@@ -19,7 +20,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       transition={{ delay: (index % 3) * 0.08 }}
-      className="h-full w-[80vw] max-w-[300px] shrink-0 snap-center sm:w-auto sm:max-w-none sm:shrink"
+      className="h-full w-[82vw] max-w-[320px] shrink-0 snap-center sm:w-auto sm:max-w-none sm:shrink"
     >
       <GlowCard className="h-full p-5 sm:p-7">
         <div className="flex h-full flex-col">
@@ -110,6 +111,32 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export function Projects() {
+  const rail = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  // Track which card sits in the center of the mobile carousel.
+  const onRailScroll = () => {
+    const el = rail.current;
+    if (!el) return;
+    const center = el.scrollLeft + el.clientWidth / 2;
+    let best = 0;
+    let bestDist = Infinity;
+    Array.from(el.children).forEach((child, i) => {
+      const c = child as HTMLElement;
+      const dist = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    });
+    setActive(best);
+  };
+
+  const scrollToCard = (i: number) => {
+    const el = rail.current?.children[i] as HTMLElement | undefined;
+    el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  };
+
   return (
     <section id="projects" className="relative py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
@@ -121,16 +148,38 @@ export function Projects() {
           description="Enterprise platforms, fintech apps, and consumer products live on the Play Store — built end-to-end with Flutter."
         />
 
-        {/* Mobile: edge-to-edge snap carousel. sm+: original grid. */}
-        <div className="perspective scrollbar-none -mx-6 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:mx-0 sm:mt-16 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
+        {/* Mobile: edge-to-edge snap carousel (touch-pan-x keeps the gesture
+            horizontal — no vertical page scroll from inside the rail). sm+: original grid. */}
+        <div
+          ref={rail}
+          onScroll={onRailScroll}
+          className="perspective scrollbar-none -mx-6 mt-6 flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-[9vw] pb-2 sm:mx-0 sm:mt-16 sm:grid sm:touch-auto sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3"
+        >
           {projects.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
           ))}
         </div>
 
-        <p className="mt-3 text-center text-xs text-muted sm:hidden">
-          Swipe to explore · {projects.length} projects
-        </p>
+        {/* Carousel controls — dots + counter, mobile only */}
+        <div className="mt-4 flex flex-col items-center gap-2 sm:hidden">
+          <div className="flex items-center gap-1.5">
+            {projects.map((p, i) => (
+              <button
+                key={p.id}
+                type="button"
+                aria-label={`Go to ${p.name}`}
+                onClick={() => scrollToCard(i)}
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-300",
+                  i === active ? "w-5 bg-accent" : "w-1.5 bg-foreground/20"
+                )}
+              />
+            ))}
+          </div>
+          <p className="text-xs text-muted">
+            {active + 1} / {projects.length} · swipe for more
+          </p>
+        </div>
       </div>
     </section>
   );

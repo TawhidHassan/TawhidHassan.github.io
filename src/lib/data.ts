@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
+import { GithubIcon, LinkedinIcon, WhatsAppIcon } from "@/components/ui/BrandIcons";
 import {
   Mail,
   Phone,
@@ -104,6 +104,12 @@ export const contactDetails = [
     value: profile.phone,
     href: `tel:${profile.phone.replace(/\s/g, "")}`,
     icon: Phone,
+  },
+  {
+    label: "WhatsApp",
+    value: profile.phone,
+    href: `https://wa.me/${profile.phone.replace(/[^\d]/g, "")}`,
+    icon: WhatsAppIcon,
   },
   { label: "Location", value: profile.location, href: undefined, icon: MapPin },
 ];
