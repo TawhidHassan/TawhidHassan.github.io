@@ -38,7 +38,7 @@ export function Experience() {
   );
 
   return (
-    <section id="experience" className="relative py-28 sm:py-36">
+    <section id="experience" className="relative py-16 sm:py-28 lg:py-36">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
           eyebrow="Career Path"
@@ -46,7 +46,7 @@ export function Experience() {
           description="Five-plus years across fintech, HR, ecommerce, edtech, and enterprise automation — leading teams and owning delivery."
         />
 
-        <div ref={container} className="relative mt-20">
+        <div ref={container} className="relative mt-12 sm:mt-20">
           {/* track */}
           <div className="absolute left-[18px] top-0 h-full w-px bg-card-border md:left-1/2 md:-translate-x-1/2" />
           {/* animated beam */}

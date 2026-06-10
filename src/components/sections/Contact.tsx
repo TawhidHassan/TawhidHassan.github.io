@@ -41,7 +41,7 @@ export function Contact() {
     "w-full rounded-xl border border-card-border bg-background-2/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20";
 
   return (
-    <section id="contact" className="relative py-28 sm:py-36">
+    <section id="contact" className="relative py-16 sm:py-28 lg:py-36">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Get in Touch"
@@ -49,7 +49,7 @@ export function Contact() {
           description="Have a product in mind or a team to strengthen? I'm open to senior Flutter roles, consulting, and ambitious builds."
         />
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="mt-10 sm:mt-16 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           {/* Left: details + CTA */}
           <div className="flex flex-col gap-6">
             <Reveal>

@@ -11,7 +11,7 @@ import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="relative py-28 sm:py-36">
+    <section id="testimonials" className="relative py-16 sm:py-28 lg:py-36">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Testimonials"
@@ -24,7 +24,7 @@ export function Testimonials() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="perspective mt-16 grid gap-6 md:grid-cols-2"
+          className="perspective mt-10 sm:mt-16 grid gap-6 md:grid-cols-2"
         >
           {testimonials.map((t) => (
             <motion.div key={t.name} variants={fadeInUp}>

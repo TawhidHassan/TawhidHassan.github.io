@@ -50,7 +50,7 @@ export function Hero() {
     <section
       ref={ref}
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden pt-28 pb-16"
+      className="relative flex min-h-screen items-center overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16"
     >
       <AuroraBackground />
       <Particles className="-z-10 opacity-70" quantity={70} />

@@ -9,7 +9,7 @@ import { staggerContainer, fadeInUp, viewportOnce } from "@/lib/motion";
 
 export function About() {
   return (
-    <section id="about" className="relative py-28 sm:py-36">
+    <section id="about" className="relative py-16 sm:py-28 lg:py-36">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="About Me"
@@ -79,7 +79,7 @@ export function About() {
 
         {/* Signature line */}
         <Reveal delay={0.1}>
-          <p className="mt-16 text-center text-sm text-muted">
+          <p className="mt-10 sm:mt-16 text-center text-sm text-muted">
             <span className="font-medium text-foreground">{profile.fullName}</span>{" "}
             · {profile.location} · {profile.experienceYears} years of crafting
             mobile products

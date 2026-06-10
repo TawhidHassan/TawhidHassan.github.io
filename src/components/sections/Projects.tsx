@@ -108,7 +108,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function Projects() {
   return (
-    <section id="projects" className="relative py-28 sm:py-36">
+    <section id="projects" className="relative py-16 sm:py-28 lg:py-36">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Featured Work"
@@ -116,7 +116,7 @@ export function Projects() {
           description="Enterprise platforms, fintech apps, and consumer products live on the Play Store — built end-to-end with Flutter."
         />
 
-        <div className="perspective mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="perspective mt-10 sm:mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
           ))}

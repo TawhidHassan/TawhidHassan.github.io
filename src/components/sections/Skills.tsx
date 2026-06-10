@@ -30,7 +30,7 @@ const skillsTimeline = skillGroups.map((g, i) => {
 
 export function Skills() {
   return (
-    <section id="skills" className="relative overflow-hidden py-28 sm:py-36">
+    <section id="skills" className="relative overflow-hidden py-16 sm:py-28 lg:py-36">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Capabilities"
@@ -40,12 +40,12 @@ export function Skills() {
       </div>
 
       {/* Interactive radial orbital map of capabilities */}
-      <div className="relative mt-12 overflow-hidden border-y border-card-border">
+      <div className="relative mt-6 overflow-hidden border-y border-card-border sm:mt-12">
         <RadialOrbitalTimeline timelineData={skillsTimeline} />
       </div>
 
       {/* Marquee ticker */}
-      <div className="relative mt-20 flex flex-col gap-4">
+      <div className="relative mt-12 sm:mt-20 flex flex-col gap-4">
         <div className="mask-fade-edges flex overflow-hidden">
           <div className="flex shrink-0 animate-marquee gap-4 pr-4">
             {[...skillMarquee, ...skillMarquee].map((s, i) => (
