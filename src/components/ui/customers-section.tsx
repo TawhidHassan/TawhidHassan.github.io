@@ -57,7 +57,7 @@ export function CustomersSection({
         {customers.map((logo, index) => (
           <div
             key={index}
-            className="group/card relative flex min-h-[76px] items-center justify-center overflow-hidden rounded-2xl border border-card-border glass px-4 py-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10"
+            className="group/card relative flex min-h-[56px] items-center justify-center overflow-hidden rounded-2xl border border-card-border glass px-3 py-3 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10 sm:min-h-[76px] sm:px-4 sm:py-5"
           >
             {/* accent glow on hover */}
             <span className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_0%,rgba(var(--accent-rgb),0.16),transparent_60%)] opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
@@ -71,7 +71,7 @@ export function CustomersSection({
                 width="auto"
               />
             ) : (
-              <span className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-sm font-semibold tracking-tight text-transparent transition-colors duration-300 group-hover/card:from-accent group-hover/card:to-accent-2 sm:text-base">
+              <span className="bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-xs font-semibold tracking-tight text-transparent transition-colors duration-300 group-hover/card:from-accent group-hover/card:to-accent-2 sm:text-base">
                 {logo.alt}
               </span>
             )}

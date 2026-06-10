@@ -23,7 +23,7 @@ const locations = [
 
 export function WorldMap() {
   return (
-    <section id="global" className="relative overflow-hidden py-12 sm:py-28 lg:py-36">
+    <section id="global" className="relative overflow-hidden py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="relative mx-auto max-w-6xl px-6">
@@ -38,9 +38,9 @@ export function WorldMap() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
           transition={{ duration: 0.6 }}
-          className="relative mt-10 sm:mt-16"
+          className="relative mt-6 sm:mt-16"
         >
-          <div className="h-[280px] w-full overflow-hidden rounded-2xl border border-card-border shadow-xl shadow-black/5 sm:h-[440px] lg:h-[520px]">
+          <div className="h-[230px] w-full overflow-hidden rounded-2xl border border-card-border shadow-xl shadow-black/5 sm:h-[440px] lg:h-[520px]">
             <Map viewport={{ center: [10, 30], zoom: 1.1 }}>
               {locations.map((loc) => (
                 <MapMarker key={loc.id} longitude={loc.lng} latitude={loc.lat}>

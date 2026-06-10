@@ -201,6 +201,15 @@
     background-size: 56px 56px;
   }
 
+  /* Hide scrollbars on horizontal swipe rails (mobile carousels). */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
   .mask-fade-edges {
     -webkit-mask-image: linear-gradient(
       90deg,

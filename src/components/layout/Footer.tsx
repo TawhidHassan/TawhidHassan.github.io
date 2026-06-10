@@ -13,8 +13,8 @@ export function Footer() {
     <footer className="relative overflow-hidden border-t border-card-border">
       <div className="pointer-events-none absolute inset-x-0 -bottom-40 mx-auto h-72 w-[60rem] max-w-full rounded-full bg-[radial-gradient(circle,rgba(var(--accent-rgb),0.18),transparent_60%)] blur-3xl" />
 
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="flex flex-col items-start justify-between gap-10 md:flex-row">
+      <div className="mx-auto max-w-6xl px-6 py-10 sm:py-16">
+        <div className="flex flex-col items-start justify-between gap-8 sm:gap-10 md:flex-row">
           <div className="max-w-sm">
             <a href="#home" className="flex items-center gap-2 text-xl font-semibold">
               <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-accent via-accent-2 to-accent-3 text-sm font-bold text-white">
@@ -73,7 +73,7 @@ export function Footer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={viewportOnce}
-          className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-card-border pt-8 sm:flex-row"
+          className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-card-border pt-6 sm:mt-14 sm:flex-row sm:pt-8"
         >
           <p className="text-sm text-muted">
             © {year} {profile.fullName}. All rights reserved.

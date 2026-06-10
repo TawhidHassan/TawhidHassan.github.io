@@ -12,7 +12,7 @@ import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="relative py-12 sm:py-28 lg:py-36">
+    <section id="testimonials" className="relative py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
@@ -27,29 +27,29 @@ export function Testimonials() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="perspective mt-10 sm:mt-16 grid gap-6 md:grid-cols-2"
+          className="perspective mt-6 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-2"
         >
           {testimonials.map((t) => (
             <motion.div key={t.name} variants={fadeInUp}>
-              <GlowCard className="h-full p-7 sm:p-8">
+              <GlowCard className="h-full p-5 sm:p-8">
                 <div className="flex h-full flex-col">
                   {/* big quote glyph */}
                   <span
                     style={{ transform: "translateZ(30px)" }}
-                    className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${t.accent} text-white shadow-lg shadow-black/10`}
+                    className={`grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br ${t.accent} text-white shadow-lg shadow-black/10 sm:h-12 sm:w-12 sm:rounded-2xl`}
                   >
-                    <Quote size={22} fill="currentColor" />
+                    <Quote size={20} fill="currentColor" />
                   </span>
 
                   <p
                     style={{ transform: "translateZ(20px)" }}
-                    className="mt-6 flex-1 text-pretty text-lg leading-relaxed text-foreground/90"
+                    className="mt-4 flex-1 text-pretty text-base leading-relaxed text-foreground/90 sm:mt-6 sm:text-lg"
                   >
                     “{t.quote}”
                   </p>
 
                   {/* author */}
-                  <div className="mt-7 flex items-center gap-4 border-t border-card-border pt-6">
+                  <div className="mt-5 flex items-center gap-3 border-t border-card-border pt-4 sm:mt-7 sm:gap-4 sm:pt-6">
                     <span
                       className={`grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br ${t.accent} text-sm font-bold text-white`}
                     >

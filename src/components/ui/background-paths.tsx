@@ -67,7 +67,10 @@ export function BackgroundPaths({ className }: { className?: string }) {
       )}
     >
       <FloatingPaths position={1} />
-      <FloatingPaths position={-1} />
+      {/* Second layer doubles the animated paths — skip it on phones. */}
+      <div className="hidden h-full w-full sm:block">
+        <FloatingPaths position={-1} />
+      </div>
     </div>
   );
 }

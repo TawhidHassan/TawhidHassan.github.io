@@ -50,14 +50,14 @@ export function Hero() {
     <section
       ref={ref}
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16"
+      className="relative flex min-h-svh items-center overflow-hidden pt-20 pb-8 sm:pt-28 sm:pb-16"
     >
       <AuroraBackground />
-      <Particles className="-z-10 opacity-70" quantity={70} />
+      <Particles className="-z-10 opacity-70" quantity={isDesktop ? 70 : 32} />
 
       <motion.div
         style={{ y, opacity, scale }}
-        className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.15fr_0.85fr]"
+        className="mx-auto grid w-full max-w-6xl items-center gap-6 px-6 sm:gap-12 lg:grid-cols-[1.15fr_0.85fr]"
       >
         {/* Left: copy */}
         <div className="order-2 flex flex-col items-start lg:order-1">
@@ -79,7 +79,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease, delay: 0.4 }}
-            className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl font-[family-name:var(--font-display)]"
+            className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:mt-6 sm:text-6xl lg:text-7xl font-[family-name:var(--font-display)]"
           >
             Hi, I&apos;m{" "}
             <span className="text-flow">{profile.name}</span>
@@ -89,7 +89,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.55 }}
-            className="mt-4 flex min-h-[2.5rem] items-center text-xl font-medium text-muted sm:text-2xl"
+            className="mt-3 flex min-h-[2rem] items-center text-lg font-medium text-muted sm:mt-4 sm:min-h-[2.5rem] sm:text-2xl"
           >
             <Typewriter words={[...profile.roles]} className="text-foreground" />
           </motion.div>
@@ -98,7 +98,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.7 }}
-            className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted sm:text-lg"
+            className="mt-4 max-w-xl text-pretty text-sm leading-relaxed text-muted sm:mt-6 sm:text-lg"
           >
             {profile.shortBio}
           </motion.p>
@@ -107,7 +107,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.85 }}
-            className="mt-9 flex flex-wrap items-center gap-4"
+            className="mt-6 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
           >
             <MagneticButton href="#projects" icon={<ArrowDown size={16} />}>
               View My Work
@@ -129,7 +129,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="mt-10 flex items-center gap-3"
+            className="mt-6 flex items-center gap-3 sm:mt-10"
           >
             <span className="text-xs uppercase tracking-widest text-muted">
               Find me
@@ -161,7 +161,7 @@ export function Hero() {
           onMouseMove={onAvatarMove}
           onMouseLeave={resetTilt}
           style={{ perspective: 1200 }}
-          className="relative order-1 mx-auto aspect-square w-full max-w-[280px] sm:max-w-xs lg:order-2 lg:max-w-sm"
+          className="relative order-1 mx-auto mt-2 aspect-square w-full max-w-[200px] sm:mt-0 sm:max-w-xs lg:order-2 lg:max-w-sm"
         >
           <motion.div
             style={{
@@ -219,7 +219,7 @@ export function Hero() {
               <motion.span
                 key={b.label}
                 style={{ z: 120 }}
-                className={`absolute ${b.className} z-20 rounded-full glass px-3 py-1.5 text-xs font-medium text-foreground shadow-lg shadow-black/10`}
+                className={`absolute ${b.className} z-20 rounded-full glass px-2.5 py-1 text-[10px] font-medium text-foreground shadow-lg shadow-black/10 sm:px-3 sm:py-1.5 sm:text-xs`}
                 animate={{ y: [0, -10, 0] }}
                 transition={{
                   duration: 4 + i,

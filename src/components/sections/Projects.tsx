@@ -19,20 +19,20 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       transition={{ delay: (index % 3) * 0.08 }}
-      className="h-full"
+      className="h-full w-[80vw] max-w-[300px] shrink-0 snap-center sm:w-auto sm:max-w-none sm:shrink"
     >
-      <GlowCard className="h-full p-6 sm:p-7">
+      <GlowCard className="h-full p-5 sm:p-7">
         <div className="flex h-full flex-col">
           {/* gradient cover */}
           <div
             className={cn(
-              "relative mb-6 grid h-28 place-items-center overflow-hidden rounded-2xl bg-gradient-to-br",
+              "relative mb-4 grid h-20 place-items-center overflow-hidden rounded-2xl bg-gradient-to-br sm:mb-6 sm:h-28",
               project.accent
             )}
           >
             <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.25),transparent_45%)]" />
             <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/20 blur-2xl" />
-            <span className="relative text-2xl font-bold tracking-tight text-white drop-shadow-sm font-[family-name:var(--font-display)]">
+            <span className="relative text-xl font-bold tracking-tight text-white drop-shadow-sm sm:text-2xl font-[family-name:var(--font-display)]">
               {project.name}
             </span>
             <span className="hud-label absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-black/20 text-[10px] font-semibold text-white backdrop-blur">
@@ -44,14 +44,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <span className="text-xs font-medium uppercase tracking-widest text-accent">
             {project.category}
           </span>
-          <h3 className="mt-2 text-xl font-semibold">{project.name}</h3>
+          <h3 className="mt-1.5 text-lg font-semibold sm:mt-2 sm:text-xl">
+            {project.name}
+          </h3>
 
-          <p className="mt-3 text-sm leading-relaxed text-muted">
+          <p className="mt-2 text-xs leading-relaxed text-muted sm:mt-3 sm:text-sm">
             {project.description}
           </p>
 
           {/* metrics */}
-          <div className="mt-5 grid grid-cols-3 gap-2">
+          <div className="mt-4 grid grid-cols-3 gap-2 sm:mt-5">
             {project.metrics.map((m) => (
               <div
                 key={m.label}
@@ -68,7 +70,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </div>
 
           {/* tech */}
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
             {project.tech.map((t) => (
               <span
                 key={t}
@@ -79,7 +81,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             ))}
           </div>
 
-          <div className="mt-6 flex items-center justify-between border-t border-card-border pt-5">
+          <div className="mt-4 flex items-center justify-between border-t border-card-border pt-4 sm:mt-6 sm:pt-5">
             <Magnetic>
               <a
                 href={project.playStore}
@@ -109,7 +111,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function Projects() {
   return (
-    <section id="projects" className="relative py-12 sm:py-28 lg:py-36">
+    <section id="projects" className="relative py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
@@ -119,11 +121,16 @@ export function Projects() {
           description="Enterprise platforms, fintech apps, and consumer products live on the Play Store — built end-to-end with Flutter."
         />
 
-        <div className="perspective mt-10 sm:mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Mobile: edge-to-edge snap carousel. sm+: original grid. */}
+        <div className="perspective scrollbar-none -mx-6 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-6 pb-2 sm:mx-0 sm:mt-16 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
           {projects.map((p, i) => (
             <ProjectCard key={p.id} project={p} index={i} />
           ))}
         </div>
+
+        <p className="mt-3 text-center text-xs text-muted sm:hidden">
+          Swipe to explore · {projects.length} projects
+        </p>
       </div>
     </section>
   );

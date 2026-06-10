@@ -23,7 +23,7 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "flex flex-col gap-4",
+        "flex flex-col gap-2.5 sm:gap-4",
         align === "center" ? "items-center text-center" : "items-start text-left",
         className
       )}
@@ -44,7 +44,7 @@ export function SectionHeading({
       <AnimatedText
         as="h2"
         text={title}
-        className="max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl font-[family-name:var(--font-display)]"
+        className="max-w-3xl text-balance text-2xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl font-[family-name:var(--font-display)]"
       />
 
       {description && (
@@ -54,7 +54,7 @@ export function SectionHeading({
           viewport={viewportOnce}
           transition={{ delay: 0.15 }}
           className={cn(
-            "max-w-2xl text-pretty text-base leading-relaxed text-muted sm:text-lg",
+            "max-w-2xl text-pretty text-sm leading-relaxed text-muted sm:text-lg",
             align === "center" && "mx-auto"
           )}
         >

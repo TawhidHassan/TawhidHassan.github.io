@@ -23,7 +23,7 @@ const clients: CustomerLogo[] = [
 
 export function Clients() {
   return (
-    <section id="clients" className="relative py-12 sm:py-28 lg:py-36">
+    <section id="clients" className="relative py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
@@ -33,7 +33,7 @@ export function Clients() {
           description="From multinationals to fast-moving local teams — products and platforms shipped for organizations across industries."
         />
 
-        <CustomersSection customers={clients} className="mt-12 sm:mt-16" />
+        <CustomersSection customers={clients} className="mt-6 sm:mt-16" />
       </div>
     </section>
   );

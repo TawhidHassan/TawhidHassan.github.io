@@ -42,7 +42,7 @@ export function Contact() {
     "w-full rounded-xl border border-card-border bg-background-2/50 px-4 py-3 text-sm outline-none transition-all placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/20";
 
   return (
-    <section id="contact" className="relative py-12 sm:py-28 lg:py-36">
+    <section id="contact" className="relative py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
@@ -52,20 +52,20 @@ export function Contact() {
           description="Have a product in mind or a team to strengthen? I'm open to senior Flutter roles, consulting, and ambitious builds."
         />
 
-        <div className="mt-10 sm:mt-16 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="mt-6 grid gap-4 sm:mt-16 sm:gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           {/* Left: details + CTA */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4 sm:gap-6">
             <Reveal>
-              <GlowCard tilt={false} className="p-7">
+              <GlowCard tilt={false} className="p-5 sm:p-7">
                 <h3 className="text-lg font-semibold">Contact details</h3>
                 <p className="mt-2 text-sm text-muted">
                   Prefer a direct line? Reach me here.
                 </p>
-                <div className="mt-6 space-y-4">
+                <div className="mt-4 space-y-2 sm:mt-6 sm:space-y-4">
                   {contactDetails.map((c) => {
                     const inner = (
                       <div className="flex items-center gap-4">
-                        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent">
+                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent sm:h-11 sm:w-11">
                           <c.icon size={18} />
                         </span>
                         <div className="min-w-0">
@@ -99,13 +99,13 @@ export function Contact() {
                 <a
                   href="/Sifat_Tawhid_Hassan_CV.pdf"
                   download
-                  className="mt-7 inline-flex items-center gap-2 rounded-xl border border-card-border bg-background-2/50 px-4 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+                  className="mt-5 inline-flex items-center gap-2 rounded-xl border border-card-border bg-background-2/50 px-4 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:mt-7"
                 >
                   <Download size={16} />
                   Download CV
                 </a>
 
-                <div className="mt-6 flex items-center gap-2 border-t border-card-border pt-6">
+                <div className="mt-5 flex items-center gap-2 border-t border-card-border pt-5 sm:mt-6 sm:pt-6">
                   {socials.map((s) => (
                     <Magnetic key={s.label}>
                       <a
@@ -124,7 +124,7 @@ export function Contact() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-accent via-accent-2 to-accent-3 p-7 text-white">
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-accent via-accent-2 to-accent-3 p-5 text-white sm:p-7">
                 <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
                 <p className="text-sm font-medium uppercase tracking-widest text-white/80">
                   {profile.availability}
@@ -141,9 +141,9 @@ export function Contact() {
 
           {/* Right: form */}
           <Reveal delay={0.05}>
-            <GlowCard tilt={false} className="p-7 sm:p-8">
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div className="grid gap-5 sm:grid-cols-2">
+            <GlowCard tilt={false} className="p-5 sm:p-8">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
+                <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
                   <div>
                     <label htmlFor="name" className="mb-2 block text-sm font-medium">
                       Name
@@ -179,11 +179,11 @@ export function Contact() {
                   <textarea
                     id="message"
                     required
-                    rows={6}
+                    rows={4}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     placeholder="Tell me about your project…"
-                    className={`${field} resize-none`}
+                    className={`${field} resize-none sm:min-h-[10rem]`}
                   />
                 </div>
 
