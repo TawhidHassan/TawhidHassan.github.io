@@ -34,6 +34,11 @@ export function AuroraBackground() {
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 grid-bg mask-fade-b opacity-70" />
 
+      {/* Tron perspective grid floor — anchors the scene with depth. */}
+      <div className="absolute inset-x-0 bottom-0 h-[40vh] overflow-hidden opacity-80">
+        <div className="tron-floor absolute inset-x-[-50%] bottom-0 h-full w-[200%]" />
+      </div>
+
       <motion.div
         style={{ x: x1, y: y1 }}
         className="absolute -left-32 -top-32 h-[42rem] w-[42rem] animate-float rounded-full bg-[radial-gradient(circle,rgba(var(--accent-rgb),0.35),transparent_60%)] blur-3xl"

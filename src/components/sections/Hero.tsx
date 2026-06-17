@@ -82,7 +82,12 @@ export function Hero() {
             className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:mt-6 sm:text-6xl lg:text-7xl font-[family-name:var(--font-display)]"
           >
             Hi, I&apos;m{" "}
-            <span className="text-flow">{profile.name}</span>
+            <span
+              className="glitch text-flow"
+              data-text={profile.name}
+            >
+              {profile.name}
+            </span>
           </motion.h1>
 
           <motion.div

@@ -81,7 +81,7 @@ export function GlowCard({
       }
       whileHover={tilt && isDesktop ? { z: 30 } : undefined}
       className={cn(
-        "group depth-shadow relative overflow-hidden rounded-3xl border border-card-border bg-card backdrop-blur-xl",
+        "group neon-ring holo depth-shadow relative overflow-hidden rounded-3xl border border-card-border bg-card backdrop-blur-xl",
         className
       )}
     >
@@ -99,13 +99,9 @@ export function GlowCard({
           style={{ background: glareBg }}
         />
       )}
-      {/* hairline gradient border on hover */}
-      <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent/40 via-transparent to-accent-3/40 [mask:linear-gradient(#000,#000)_content-box,linear-gradient(#000,#000)] [mask-composite:exclude] p-px" />
-      </div>
       <div
         style={{ transform: "translateZ(40px)", transformStyle: "preserve-3d" }}
-        className="relative h-full"
+        className="relative z-10 h-full"
       >
         {children}
       </div>

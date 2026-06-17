@@ -45,8 +45,8 @@ export function Navbar() {
       >
         <nav
           className={cn(
-            "flex w-full max-w-5xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-500 sm:px-6",
-            scrolled ? "glass shadow-lg shadow-black/5" : "bg-transparent"
+            "relative flex w-full max-w-5xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-500 sm:px-6",
+            scrolled ? "glass neon-ring neon-ring--on shadow-lg shadow-black/5" : "bg-transparent"
           )}
         >
           <Magnetic>

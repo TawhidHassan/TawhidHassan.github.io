@@ -116,6 +116,34 @@
   to { transform: translateY(100vh); }
 }
 
+/* Animatable conic angle for rotating neon borders. */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes border-spin {
+  to { --angle: 360deg; }
+}
+@keyframes holo-sweep {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  60%, 100% { transform: translateX(220%) skewX(-18deg); }
+}
+@keyframes tron-scroll {
+  to { background-position: 0 48px; }
+}
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 80%, 100% { opacity: 1; }
+  20%, 22%, 82% { opacity: 0.35; }
+}
+@keyframes glitch-x {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 40% 0); transform: translate(-2px, 1px); }
+  40% { clip-path: inset(55% 0 12% 0); transform: translate(2px, -1px); }
+  60% { clip-path: inset(8% 0 70% 0); transform: translate(-1px, 1px); }
+  80% { clip-path: inset(40% 0 30% 0); transform: translate(1px, -1px); }
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                 BASE LAYER                                  */
 /* -------------------------------------------------------------------------- */
@@ -348,5 +376,125 @@
       transparent 50%,
       rgba(0, 0, 0, 0.55) 100%
     );
+  }
+
+  /* ------------------------- CYBER HUD TOOLKIT ------------------------ */
+
+  /* Rotating neon conic border. Add to a positioned, rounded element;
+     reveals on hover (or always-on with .neon-ring--on). */
+  .neon-ring::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 12%,
+      var(--accent) 30%,
+      var(--accent-2) 50%,
+      var(--accent-3) 70%,
+      transparent 88%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    animation: border-spin 4s linear infinite;
+  }
+  .group:hover .neon-ring::after,
+  .neon-ring:hover::after,
+  .neon-ring--on::after {
+    opacity: 1;
+  }
+
+  /* Holographic sheen that sweeps across a surface on hover. */
+  .holo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    pointer-events: none;
+    overflow: hidden;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.18) 45%,
+      rgba(var(--accent-rgb), 0.12) 55%,
+      transparent 70%
+    );
+    transform: translateX(-120%) skewX(-18deg);
+    opacity: 0;
+  }
+  .group:hover .holo::before,
+  .holo:hover::before {
+    opacity: 1;
+    animation: holo-sweep 1.1s ease forwards;
+  }
+
+  /* Tron perspective grid floor — drop into a background container. */
+  .tron-floor {
+    background-image:
+      linear-gradient(rgba(var(--accent-rgb), 0.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(var(--accent-rgb), 0.16) 1px, transparent 1px);
+    background-size: 48px 48px;
+    transform: perspective(420px) rotateX(70deg);
+    transform-origin: center bottom;
+    -webkit-mask-image: linear-gradient(to top, #000 5%, transparent 75%);
+    mask-image: linear-gradient(to top, #000 5%, transparent 75%);
+    animation: tron-scroll 6s linear infinite;
+  }
+
+  /* CRT scanline veil. */
+  .scanlines::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 2px,
+      rgba(var(--accent-rgb), 0.05) 3px,
+      transparent 4px
+    );
+    mix-blend-mode: overlay;
+  }
+
+  /* Glitch the ::before/::after copies of a [data-text] element on hover. */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .glitch:hover::before {
+    opacity: 0.85;
+    color: var(--accent-3);
+    animation: glitch-x 0.5s steps(2) 1;
+    text-shadow: -2px 0 var(--accent-3);
+  }
+  .glitch:hover::after {
+    opacity: 0.85;
+    color: var(--accent-2);
+    animation: glitch-x 0.5s steps(2) reverse 1;
+    text-shadow: 2px 0 var(--accent-2);
+  }
+
+  /* Animated neon gradient underline bar. */
+  .neon-underline {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    background-size: 200% auto;
+    animation: text-flow 6s linear infinite;
+    box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.5);
   }
 }
