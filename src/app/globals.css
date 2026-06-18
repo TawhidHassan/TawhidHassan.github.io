@@ -144,6 +144,11 @@
   80% { clip-path: inset(40% 0 30% 0); transform: translate(1px, -1px); }
 }
 
+@keyframes bg-paths-pulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.16; }
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                 BASE LAYER                                  */
 /* -------------------------------------------------------------------------- */
@@ -155,6 +160,8 @@
 
   html {
     scroll-behavior: smooth;
+    /* Native anchor jumps (mobile, where Lenis is off) clear the fixed navbar. */
+    scroll-padding-top: 80px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -358,6 +365,23 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     animation: var(--animate-grain);
     mix-blend-mode: overlay;
+  }
+  /* Fullscreen mix-blend repaint every grain frame is brutal on mobile GPUs. */
+  @media (hover: none), (pointer: coarse) {
+    .grain-overlay {
+      display: none;
+    }
+  }
+
+  /* Decorative section path layer: one cheap, GPU-composited opacity pulse
+     instead of hundreds of per-path JS animations. Off on touch/low-power. */
+  .bg-paths {
+    animation: bg-paths-pulse 14s ease-in-out infinite;
+  }
+  @media (hover: none), (pointer: coarse) {
+    .bg-paths {
+      animation: none;
+    }
   }
   .vignette {
     position: fixed;

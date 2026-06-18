@@ -1,14 +1,17 @@
-"use client";
-
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 /**
- * One direction of animated flowing SVG paths. Inherits `currentColor`, so the
- * parent sets the tint via a `text-*` class.
+ * One direction of flowing SVG paths. Inherits `currentColor`, so the parent
+ * sets the tint via a `text-*` class.
+ *
+ * Perf: these are STATIC paths. The previous version animated `pathLength` and
+ * `pathOffset` on 36 `motion.path` nodes per layer — that runs on the main
+ * thread and, multiplied across every section, tanked scroll on mobile. The
+ * gentle "alive" feel now comes from a single GPU-composited opacity pulse on
+ * the wrapper (`.bg-paths`), so the whole layer costs one cheap animation.
  */
-function FloatingPaths({ position }: { position: number }) {
-  const paths = Array.from({ length: 36 }, (_, i) => ({
+function FloatingPaths({ position, count }: { position: number; count: number }) {
+  const paths = Array.from({ length: count }, (_, i) => ({
     id: i,
     d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${
       380 - i * 5 * position
@@ -17,7 +20,8 @@ function FloatingPaths({ position }: { position: number }) {
     } ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${
       684 - i * 5 * position
     } ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
-    width: 0.5 + i * 0.03,
+    width: 0.5 + i * 0.06,
+    opacity: 0.1 + i * 0.05,
   }));
 
   return (
@@ -26,26 +30,15 @@ function FloatingPaths({ position }: { position: number }) {
       viewBox="0 0 696 316"
       fill="none"
       preserveAspectRatio="xMidYMid slice"
+      aria-hidden
     >
-      <title>Background Paths</title>
       {paths.map((path) => (
-        <motion.path
+        <path
           key={path.id}
           d={path.d}
           stroke="currentColor"
           strokeWidth={path.width}
-          strokeOpacity={0.1 + path.id * 0.03}
-          initial={{ pathLength: 0.3, opacity: 0.6 }}
-          animate={{
-            pathLength: 1,
-            opacity: [0.3, 0.6, 0.3],
-            pathOffset: [0, 1, 0],
-          }}
-          transition={{
-            duration: 20 + Math.random() * 10,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "linear",
-          }}
+          strokeOpacity={path.opacity}
         />
       ))}
     </svg>
@@ -53,23 +46,23 @@ function FloatingPaths({ position }: { position: number }) {
 }
 
 /**
- * Drop-in animated background layer for a section. Place as the first child of
- * a `relative` container — it sits behind static content via `-z-10` and is
- * tinted with the accent color at low opacity.
+ * Drop-in background layer for a section. Place as the first child of a
+ * `relative` container — it sits behind static content via `-z-10`.
+ * Server component (no client JS): cheaper bundle, cheaper render.
  */
 export function BackgroundPaths({ className }: { className?: string }) {
   return (
     <div
       aria-hidden
       className={cn(
-        "pointer-events-none absolute inset-0 -z-10 overflow-hidden text-accent opacity-[0.13]",
+        "bg-paths pointer-events-none absolute inset-0 -z-10 overflow-hidden text-accent opacity-[0.13]",
         className
       )}
     >
-      <FloatingPaths position={1} />
-      {/* Second layer doubles the animated paths — skip it on phones. */}
+      <FloatingPaths position={1} count={14} />
+      {/* Second layer doubles the paths — skip it on phones. */}
       <div className="hidden h-full w-full sm:block">
-        <FloatingPaths position={-1} />
+        <FloatingPaths position={-1} count={14} />
       </div>
     </div>
   );

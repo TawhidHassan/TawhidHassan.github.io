@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePrefersReducedMotion } from "@/hooks/useMediaQuery";
+import { usePrefersReducedMotion, useIsDesktop } from "@/hooks/useMediaQuery";
 
 type ParticlesProps = {
   className?: string;
@@ -15,9 +15,12 @@ type ParticlesProps = {
 export function Particles({ className, quantity = 60 }: ParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduced = usePrefersReducedMotion();
+  // Cursor-reactive field is pointless without a fine pointer, and the O(n²)
+  // link loop is a frame killer on phones. Desktop only.
+  const isDesktop = useIsDesktop();
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || !isDesktop) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -123,7 +126,9 @@ export function Particles({ className, quantity = 60 }: ParticlesProps) {
       window.removeEventListener("mousemove", onMouse);
       window.removeEventListener("mouseout", onLeave);
     };
-  }, [quantity, reduced]);
+  }, [quantity, reduced, isDesktop]);
+
+  if (!isDesktop) return null;
 
   return (
     <canvas

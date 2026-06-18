@@ -41,13 +41,13 @@ export function AuroraBackground() {
 
       <motion.div
         style={{ x: x1, y: y1 }}
-        className="absolute -left-32 -top-32 h-[42rem] w-[42rem] animate-float rounded-full bg-[radial-gradient(circle,rgba(var(--accent-rgb),0.35),transparent_60%)] blur-3xl"
+        className="absolute -left-32 -top-32 h-[42rem] w-[42rem] animate-float rounded-full bg-[radial-gradient(circle,rgba(var(--accent-rgb),0.35),transparent_60%)] blur-2xl sm:blur-3xl"
       />
       <motion.div
         style={{ x: x2, y: y2 }}
-        className="absolute -right-40 top-20 h-[38rem] w-[38rem] animate-float rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.3),transparent_60%)] blur-3xl [animation-delay:-3s]"
+        className="absolute -right-40 top-20 h-[38rem] w-[38rem] animate-float rounded-full bg-[radial-gradient(circle,rgba(139,92,246,0.3),transparent_60%)] blur-2xl sm:blur-3xl [animation-delay:-3s]"
       />
-      <div className="absolute bottom-[-12rem] left-1/3 h-[34rem] w-[34rem] animate-float rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.22),transparent_60%)] blur-3xl [animation-delay:-6s]" />
+      <div className="absolute bottom-[-12rem] left-1/3 h-[34rem] w-[34rem] animate-float rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.22),transparent_60%)] blur-2xl sm:blur-3xl [animation-delay:-6s]" />
     </div>
   );
 }

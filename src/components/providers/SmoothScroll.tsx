@@ -17,12 +17,15 @@ export function SmoothScroll() {
 
   useEffect(() => {
     if (reduced) return;
+    // Native scroll is smoother than JS scroll-hijacking on touch devices —
+    // run Lenis only where there's a real wheel/trackpad.
+    if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.5,
+      syncTouch: false,
     });
 
     // Keep GSAP ScrollTrigger in lockstep with Lenis.
