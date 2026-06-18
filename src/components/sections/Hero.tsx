@@ -56,7 +56,7 @@ export function Hero() {
       <Particles className="-z-10 opacity-70" quantity={isDesktop ? 70 : 32} />
 
       <motion.div
-        style={{ y, opacity, scale }}
+        style={isDesktop ? { y, opacity, scale } : undefined}
         className="mx-auto grid w-full max-w-6xl items-center gap-6 px-6 sm:gap-12 lg:grid-cols-[1.15fr_0.85fr]"
       >
         {/* Left: copy */}
@@ -112,21 +112,37 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 0.85 }}
-            className="mt-6 flex flex-wrap items-center gap-3 sm:mt-9 sm:gap-4"
+            className="mt-6 grid w-full grid-cols-3 gap-2 sm:mt-9 sm:flex sm:flex-wrap sm:items-center sm:gap-4"
           >
-            <MagneticButton href="#projects" icon={<ArrowDown size={16} />}>
-              View My Work
+            <MagneticButton
+              href="#projects"
+              icon={<ArrowDown size={16} />}
+              wrapperClassName="w-full sm:w-auto"
+              className="w-full justify-center whitespace-nowrap px-2 py-3 text-xs sm:px-7 sm:py-3.5 sm:text-sm"
+            >
+              <span className="sm:hidden">Work</span>
+              <span className="hidden sm:inline">View My Work</span>
             </MagneticButton>
-            <MagneticButton href="#contact" variant="outline" icon={<Mail size={16} />}>
-              Get in Touch
+            <MagneticButton
+              href="#contact"
+              variant="outline"
+              icon={<Mail size={16} />}
+              wrapperClassName="w-full sm:w-auto"
+              className="w-full justify-center whitespace-nowrap px-2 py-3 text-xs sm:px-7 sm:py-3.5 sm:text-sm"
+            >
+              <span className="sm:hidden">Contact</span>
+              <span className="hidden sm:inline">Get in Touch</span>
             </MagneticButton>
             <MagneticButton
               href="/Sifat_Tawhid_Hassan_CV.pdf"
               download
               variant="outline"
               icon={<Download size={16} />}
+              wrapperClassName="w-full sm:w-auto"
+              className="w-full justify-center whitespace-nowrap px-2 py-3 text-xs sm:px-7 sm:py-3.5 sm:text-sm"
             >
-              Download CV
+              <span className="sm:hidden">CV</span>
+              <span className="hidden sm:inline">Download CV</span>
             </MagneticButton>
           </motion.div>
 
@@ -176,10 +192,11 @@ export function Hero() {
             }}
             className="relative h-full w-full"
           >
-            {/* rotating conic halo (deep back layer) */}
+            {/* rotating conic halo (deep back layer) — desktop only: a spinning
+                blurred layer recomposites every frame, which janks mobile scroll. */}
             <div
               style={{ transform: "translateZ(-80px)" }}
-              className="absolute inset-0 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(var(--accent-rgb),0.55),transparent_40%)] blur-md"
+              className="absolute inset-0 hidden animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(var(--accent-rgb),0.55),transparent_40%)] blur-md sm:block"
             />
             {/* pulsing glow */}
             <div
@@ -191,10 +208,10 @@ export function Hero() {
               style={{ transform: "translateZ(10px)" }}
               className="absolute inset-3 rounded-full glass"
             />
-            {/* dashed orbit ring */}
+            {/* dashed orbit ring (spinning) — desktop only */}
             <div
               style={{ transform: "translateZ(30px)" }}
-              className="absolute inset-1 animate-spin-slow rounded-full border border-dashed border-accent/25 [animation-direction:reverse]"
+              className="absolute inset-1 hidden animate-spin-slow rounded-full border border-dashed border-accent/25 [animation-direction:reverse] sm:block"
             />
             {/* photo */}
             <div
@@ -210,8 +227,8 @@ export function Hero() {
                 className="object-cover object-top"
               />
               <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
-              {/* HUD scan sweep over the photo */}
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-12 animate-scan bg-gradient-to-b from-accent/25 to-transparent" />
+              {/* HUD scan sweep over the photo — desktop only */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-12 animate-scan bg-gradient-to-b from-accent/25 to-transparent sm:block" />
             </div>
 
             {/* floating badges — raised highest in Z for parallax depth */}

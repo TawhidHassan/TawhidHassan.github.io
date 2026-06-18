@@ -382,6 +382,12 @@
     .bg-paths {
       animation: none;
     }
+    /* Big blurred movers recomposite a large layer every frame — freeze them
+       on touch so they don't fight scroll. They stay as static decoration. */
+    .animate-float,
+    .animate-glow-pulse {
+      animation: none;
+    }
   }
   .vignette {
     position: fixed;

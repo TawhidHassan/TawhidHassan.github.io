@@ -59,6 +59,7 @@ type ButtonProps = {
   disabled?: boolean;
   ariaLabel?: string;
   download?: boolean | string;
+  wrapperClassName?: string;
 };
 
 const base =
@@ -85,6 +86,7 @@ export function MagneticButton({
   disabled,
   ariaLabel,
   download,
+  wrapperClassName,
 }: ButtonProps) {
   const [hover, setHover] = useState(false);
 
@@ -110,13 +112,14 @@ export function MagneticButton({
 
   if (href) {
     return (
-      <Magnetic>
+      <Magnetic className={wrapperClassName}>
         <a
           href={href}
           aria-label={ariaLabel}
           download={download}
           target={external ? "_blank" : undefined}
           rel={external ? "noopener noreferrer" : undefined}
+          className="flex w-full"
         >
           {inner}
         </a>
@@ -125,12 +128,13 @@ export function MagneticButton({
   }
 
   return (
-    <Magnetic>
+    <Magnetic className={wrapperClassName}>
       <button
         type={type}
         onClick={onClick}
         disabled={disabled}
         aria-label={ariaLabel}
+        className="flex w-full"
       >
         {inner}
       </button>
