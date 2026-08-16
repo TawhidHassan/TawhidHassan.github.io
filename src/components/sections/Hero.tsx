@@ -134,7 +134,7 @@ export function Hero() {
               <span className="hidden sm:inline">Get in Touch</span>
             </MagneticButton>
             <MagneticButton
-              href="/Sifat_Tawhid_Hassan_CV.pdf"
+              href="/TawhidHasanSifat_5_plus_experience_2026.pdf"
               download
               variant="outline"
               icon={<Download size={16} />}
