@@ -91,7 +91,7 @@ const jsonLd = {
   address: { "@type": "PostalAddress", addressLocality: "Dhaka", addressCountry: "BD" },
   sameAs: [
     "https://github.com/TawhidHassan",
-    "https://www.linkedin.com/in/tawhid-hasna-sifat-40093320a/",
+    "https://www.linkedin.com/in/tawhid-hasan-sifat-40093320a/",
   ],
 };
 
