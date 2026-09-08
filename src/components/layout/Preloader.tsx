@@ -4,8 +4,16 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 
+/** Boot lines that tick past as the counter climbs — one per 25%. */
+const BOOT_LINES = [
+  "INIT NEURAL CORE",
+  "COMPILING SHADERS",
+  "SPINNING UP ORBIT RIG",
+  "LINK ESTABLISHED",
+] as const;
+
 /**
- * Brief intro overlay: counts to 100, draws the initials, then curtains up.
+ * Brief intro overlay: a boot readout that counts to 100, then curtains up.
  * Auto-dismisses; respects a max display time so it never blocks content.
  */
 export function Preloader() {
@@ -60,13 +68,19 @@ export function Preloader() {
             />
           </motion.div>
 
-          <div className="mt-8 h-px w-48 overflow-hidden bg-card-border">
+          <div className="mt-8 h-px w-56 overflow-hidden bg-card-border">
             <motion.div
               className="h-full bg-gradient-to-r from-accent via-accent-2 to-accent-3"
               style={{ width: `${count}%` }}
             />
           </div>
-          <p className="mt-4 text-sm tabular-nums text-muted">{count}%</p>
+
+          <div className="mt-4 flex w-56 items-center justify-between font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-muted">
+            <span className="text-accent">
+              {BOOT_LINES[Math.min(BOOT_LINES.length - 1, Math.floor(count / 25))]}
+            </span>
+            <span className="tabular-nums">{count}%</span>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

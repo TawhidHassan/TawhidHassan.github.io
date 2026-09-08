@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Cursor } from "@/components/ui/Cursor";
+import { QuantumField } from "@/components/three/QuantumField";
 import { Grain } from "@/components/ui/Grain";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Preloader } from "@/components/layout/Preloader";
@@ -113,6 +114,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
         <ThemeProvider>
           <Preloader />
+          <QuantumField />
           <SmoothScroll />
           <ScrollProgress />
           <Cursor />
