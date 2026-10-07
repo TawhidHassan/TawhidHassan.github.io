@@ -2,12 +2,15 @@
 
 import { motion } from "motion/react";
 import { ArrowUp } from "lucide-react";
-import { navLinks, profile, socials } from "@/lib/data";
+import { navLinks } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
+import { Icon } from "@/lib/icons";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { viewportOnce } from "@/lib/motion";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { profile, socials } = useSiteData();
 
   return (
     <footer className="relative overflow-hidden border-t border-card-border">
@@ -59,7 +62,7 @@ export function Footer() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground"
                     >
-                      <s.icon size={15} />
+                      <Icon name={s.icon} size={15} />
                       {s.label}
                     </a>
                   </li>

@@ -12,17 +12,10 @@ import {
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { viewportOnce } from "@/lib/motion";
-
-/** Countries I've shipped work for. */
-const locations = [
-  { id: 1, name: "Morocco", flag: "🇲🇦", lng: -6.8498, lat: 33.9716 },
-  { id: 2, name: "United Kingdom", flag: "🇬🇧", lng: -0.1276, lat: 51.5074 },
-  { id: 3, name: "India", flag: "🇮🇳", lng: 77.209, lat: 28.6139 },
-  { id: 4, name: "Bangladesh", flag: "🇧🇩", lng: 90.4125, lat: 23.8103 },
-  { id: 5, name: "United States", flag: "🇺🇸", lng: -77.0369, lat: 38.9072 },
-] as const;
+import { useSiteData } from "@/components/providers/SiteDataProvider";
 
 export function WorldMap() {
+  const { locations, headings } = useSiteData();
   // Defer the WebGL map (context + tile fetch) until it's about to be seen.
   const mapBoxRef = useRef<HTMLDivElement>(null);
   const [showMap, setShowMap] = useState(false);
@@ -49,9 +42,7 @@ export function WorldMap() {
 
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Global Reach"
-          title="Working across borders."
-          description="Remote-first collaboration with teams and clients on five markets across three continents. Hover a pin to see where."
+          {...headings.global}
         />
 
         <motion.div
@@ -68,7 +59,7 @@ export function WorldMap() {
             {showMap && (
               <Map viewport={{ center: [10, 30], zoom: 1.1 }}>
                 {locations.map((loc) => (
-                  <MapMarker key={loc.id} longitude={loc.lng} latitude={loc.lat}>
+                  <MapMarker key={loc.name} longitude={loc.lng} latitude={loc.lat}>
                     <MarkerContent>
                       <span className="relative flex h-4 w-4">
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
@@ -89,7 +80,7 @@ export function WorldMap() {
           <div className="mt-4 flex flex-wrap justify-center gap-2 sm:mt-6 sm:gap-2.5">
             {locations.map((loc) => (
               <span
-                key={loc.id}
+                key={loc.name}
                 className="inline-flex items-center gap-1.5 rounded-full glass px-3 py-1.5 text-xs font-medium text-muted sm:gap-2 sm:px-4 sm:py-2 sm:text-sm"
               >
                 <span className="text-base leading-none">{loc.flag}</span>

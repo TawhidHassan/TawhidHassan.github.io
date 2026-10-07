@@ -10,7 +10,8 @@ import {
 import { useRef } from "react";
 import Image from "next/image";
 import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
-import { profile, socials } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
+import { Icon } from "@/lib/icons";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { Particles } from "@/components/ui/Particles";
 import { Typewriter } from "@/components/ui/Typewriter";
@@ -19,9 +20,18 @@ import { HudCorners, HudTag } from "@/components/ui/Hud";
 import { useIsDesktop } from "@/hooks/useMediaQuery";
 import { ease } from "@/lib/motion";
 
+/** Fixed positions for the floating badges around the avatar. */
+const BADGE_SLOTS = [
+  "left-0 top-10",
+  "right-0 top-24",
+  "bottom-12 left-2",
+  "bottom-4 right-6",
+];
+
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const isDesktop = useIsDesktop();
+  const { profile, socials } = useSiteData();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -134,7 +144,7 @@ export function Hero() {
               <span className="hidden sm:inline">Get in Touch</span>
             </MagneticButton>
             <MagneticButton
-              href="/TawhidHasanSifat_5_plus_experience_2026.pdf"
+              href={profile.cvUrl}
               download
               variant="outline"
               icon={<Download size={16} />}
@@ -166,7 +176,7 @@ export function Hero() {
                     aria-label={s.label}
                     className="grid h-10 w-10 place-items-center rounded-full glass text-muted transition-colors hover:text-accent"
                   >
-                    <s.icon size={17} />
+                    <Icon name={s.icon} size={17} />
                   </a>
                 </Magnetic>
               ))}
@@ -219,7 +229,7 @@ export function Hero() {
               className="absolute inset-6 overflow-hidden rounded-full bg-gradient-to-br from-background-2 to-background"
             >
               <Image
-                src="/sifat.png"
+                src={profile.photoUrl}
                 alt={`${profile.fullName} — ${profile.tagline}`}
                 fill
                 priority
@@ -232,16 +242,11 @@ export function Hero() {
             </div>
 
             {/* floating badges — raised highest in Z for parallax depth */}
-            {[
-              { label: "Flutter", className: "left-0 top-10" },
-              { label: "5+ yrs", className: "right-0 top-24" },
-              { label: "20+ apps", className: "bottom-12 left-2" },
-              { label: "Android · iOS", className: "bottom-4 right-6" },
-            ].map((b, i) => (
+            {profile.heroBadges.slice(0, BADGE_SLOTS.length).map((label, i) => (
               <motion.span
-                key={b.label}
+                key={label}
                 style={{ z: 120 }}
-                className={`absolute ${b.className} z-20 rounded-full glass px-2.5 py-1 text-[10px] font-medium text-foreground shadow-lg shadow-black/10 sm:px-3 sm:py-1.5 sm:text-xs`}
+                className={`absolute ${BADGE_SLOTS[i]} z-20 rounded-full glass px-2.5 py-1 text-[10px] font-medium text-foreground shadow-lg shadow-black/10 sm:px-3 sm:py-1.5 sm:text-xs`}
                 animate={{ y: [0, -10, 0] }}
                 transition={{
                   duration: 4 + i,
@@ -250,7 +255,7 @@ export function Hero() {
                   delay: i * 0.4,
                 }}
               >
-                {b.label}
+                {label}
               </motion.span>
             ))}
           </motion.div>

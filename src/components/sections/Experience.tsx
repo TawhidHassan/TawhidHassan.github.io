@@ -6,7 +6,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ChevronDown } from "lucide-react";
-import { experiences, type ExperienceItem } from "@/lib/data";
+import type { ExperienceItem } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
+import { Icon } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
@@ -83,6 +85,7 @@ function ExperienceCard({ exp, left }: { exp: ExperienceItem; left: boolean }) {
 export function Experience() {
   const container = useRef<HTMLDivElement>(null);
   const beam = useRef<HTMLDivElement>(null);
+  const { experiences, headings } = useSiteData();
 
   useGSAP(
     () => {
@@ -111,9 +114,7 @@ export function Experience() {
 
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
-          eyebrow="Career Path"
-          title="A timeline of building & shipping."
-          description="Five-plus years across fintech, HR, ecommerce, edtech, and enterprise automation — leading teams and owning delivery."
+          {...headings.experience}
         />
 
         <div ref={container} className="relative mt-8 sm:mt-20">
@@ -141,7 +142,7 @@ export function Experience() {
                 >
                   {/* node */}
                   <span className="absolute left-[14px] top-2 z-10 grid h-7 w-7 -translate-x-1/2 place-items-center rounded-full glass text-accent sm:left-[18px] sm:h-9 sm:w-9 md:left-1/2">
-                    <exp.icon size={14} />
+                    <Icon name={exp.icon} size={14} />
                     <span className="absolute inset-0 animate-ping rounded-full border border-accent/40" />
                   </span>
 

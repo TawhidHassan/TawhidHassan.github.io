@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   output: "export",
   images: {
     unoptimized: true,
+    // Uploaded media is served from Supabase Storage.
+    remotePatterns: [{ protocol: "https", hostname: "*.supabase.co" }],
   },
   // Pin the workspace root so Next ignores stray parent lockfiles.
   turbopack: {

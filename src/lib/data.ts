@@ -1,39 +1,10 @@
-import type { ComponentType } from "react";
-import { GithubIcon, LinkedinIcon, WhatsAppIcon } from "@/components/ui/BrandIcons";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Globe,
-  Smartphone,
-  Boxes,
-  Cpu,
-  CreditCard,
-  GraduationCap,
-  Building2,
-  ShoppingBag,
-  Briefcase,
-  Rocket,
-  Layers,
-  ShieldCheck,
-  Bell,
-  Map as MapIcon,
-  GitBranch,
-  Gauge,
-  Palette,
-  Database,
-  Server,
-  Workflow,
-  Cloud,
-  Brain,
-  Locate,
-} from "lucide-react";
+/**
+ * Built-in site content. It is the fallback (and the seed) for everything the
+ * admin panel manages in Supabase, so it must stay plain serializable data.
+ */
 
-/** Any icon component used across the site (lucide or custom brand SVG). */
-export type IconType = ComponentType<{
-  size?: number | string;
-  className?: string;
-}>;
+/** Key into the icon registry in `@/lib/icons`. */
+export type IconName = string;
 
 /* -------------------------------------------------------------------------- */
 /*                                   PROFILE                                   */
@@ -57,7 +28,12 @@ export const profile = {
   experienceYears: "5+",
   shortBio:
     "Senior Flutter Developer with 5+ years crafting high-performance, beautifully designed mobile apps — blending innovation, scalability, and precision in every line of code.",
-} as const;
+  photoUrl: "/sifat.png",
+  cvUrl: "/TawhidHasanSifat_5_plus_experience_2026.pdf",
+  heroBadges: ["Flutter", "5+ yrs", "20+ apps", "Android · iOS"],
+};
+
+export type Profile = typeof profile;
 
 /* -------------------------------------------------------------------------- */
 /*                                    LINKS                                    */
@@ -67,7 +43,7 @@ export type SocialLink = {
   label: string;
   href: string;
   handle: string;
-  icon: IconType;
+  icon: IconName;
 };
 
 export const socials: SocialLink[] = [
@@ -75,43 +51,26 @@ export const socials: SocialLink[] = [
     label: "GitHub",
     href: "https://github.com/TawhidHassan",
     handle: "@TawhidHassan",
-    icon: GithubIcon,
+    icon: "Github",
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/tawhid-hasan-sifat-40093320a/",
     handle: "Tawhid Hassan Sifat",
-    icon: LinkedinIcon,
+    icon: "Linkedin",
   },
   {
     label: "Email",
     href: `mailto:${profile.email}`,
     handle: profile.email,
-    icon: Mail,
+    icon: "Mail",
   },
   {
     label: "Phone",
     href: `tel:${profile.phone.replace(/\s/g, "")}`,
     handle: profile.phone,
-    icon: Phone,
+    icon: "Phone",
   },
-];
-
-export const contactDetails = [
-  { label: "Email", value: profile.email, href: `mailto:${profile.email}`, icon: Mail },
-  {
-    label: "Phone",
-    value: profile.phone,
-    href: `tel:${profile.phone.replace(/\s/g, "")}`,
-    icon: Phone,
-  },
-  {
-    label: "WhatsApp",
-    value: profile.phone,
-    href: `https://wa.me/${profile.phone.replace(/[^\d]/g, "")}`,
-    icon: WhatsAppIcon,
-  },
-  { label: "Location", value: profile.location, href: undefined, icon: MapPin },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -132,7 +91,13 @@ export const navLinks = [
 /*                                   ABOUT                                     */
 /* -------------------------------------------------------------------------- */
 
-export const about = {
+export type Highlight = { title: string; description: string; icon: IconName };
+
+export const about: {
+  heading: string;
+  paragraphs: string[];
+  highlights: Highlight[];
+} = {
   heading: "Engineering mobile products that scale.",
   paragraphs: [
     "I'm a Senior Flutter Developer with 5+ years of experience building production-grade mobile applications for enterprises, fintechs, and high-growth startups across Bangladesh and beyond.",
@@ -144,25 +109,25 @@ export const about = {
       title: "Cross-Platform Mastery",
       description:
         "Flutter & Dart specialist delivering pixel-perfect, native-feeling apps on Android and iOS from a single codebase.",
-      icon: Smartphone,
+      icon: "Smartphone",
     },
     {
       title: "Scalable Architecture",
       description:
         "Clean Architecture, GetX, and modular state management that keep large codebases maintainable as teams grow.",
-      icon: Boxes,
+      icon: "Boxes",
     },
     {
       title: "AI & Backend Integration",
       description:
         "Wiring intelligent features and resilient REST/Node.js & Laravel backends into seamless product experiences.",
-      icon: Cpu,
+      icon: "Cpu",
     },
     {
       title: "Fintech-Grade Quality",
       description:
         "Payment integrations, secure flows, and enterprise reliability honed across financial and HR platforms.",
-      icon: CreditCard,
+      icon: "CreditCard",
     },
   ],
 };
@@ -176,7 +141,7 @@ export type ExperienceItem = {
   role: string;
   period: string;
   type: string;
-  icon: IconType;
+  icon: IconName;
   summary: string;
   projects: string[];
 };
@@ -187,7 +152,7 @@ export const experiences: ExperienceItem[] = [
     role: "Senior Software Engineer",
     period: "2024 — Present",
     type: "Full-time",
-    icon: Rocket,
+    icon: "Rocket",
     summary:
       "Leading development of enterprise HR and attendance solutions, owning architecture and delivery end-to-end.",
     projects: [
@@ -200,7 +165,7 @@ export const experiences: ExperienceItem[] = [
     role: "Software Engineer",
     period: "2021 — 2024",
     type: "Full-time",
-    icon: Building2,
+    icon: "Building2",
     summary:
       "Built sales-force automation, activation, and edtech platforms for some of the largest enterprises in the region.",
     projects: [
@@ -216,7 +181,7 @@ export const experiences: ExperienceItem[] = [
     role: "Software Engineer",
     period: "2021",
     type: "Full-time",
-    icon: Briefcase,
+    icon: "Briefcase",
     summary:
       "Developed sub-wing management software supporting telecom operations and internal workflows.",
     projects: ["Dhamaka sub-wings software"],
@@ -226,7 +191,7 @@ export const experiences: ExperienceItem[] = [
     role: "Lead App Engineer · Senior Software Engineer",
     period: "Part-time",
     type: "Part-time",
-    icon: GraduationCap,
+    icon: "GraduationCap",
     summary:
       "Led the app team for a popular edtech product, mentoring engineers and owning the mobile roadmap.",
     projects: ["Biddabari App — edtech platform"],
@@ -236,7 +201,7 @@ export const experiences: ExperienceItem[] = [
     role: "Team Lead · Senior Software Engineer",
     period: "Part-time",
     type: "Part-time",
-    icon: Layers,
+    icon: "Layers",
     summary:
       "Led delivery of on-demand hiring products connecting employers and job seekers instantly.",
     projects: [
@@ -249,7 +214,7 @@ export const experiences: ExperienceItem[] = [
     role: "Software Engineer",
     period: "2019 — 2020",
     type: "Freelance",
-    icon: ShoppingBag,
+    icon: "ShoppingBag",
     summary:
       "Delivered ecommerce and custom mobile solutions for international and local clients.",
     projects: ["Regal Furniture", "Multiple ecommerce projects"],
@@ -260,50 +225,50 @@ export const experiences: ExperienceItem[] = [
 /*                                   SKILLS                                    */
 /* -------------------------------------------------------------------------- */
 
-export type Skill = { name: string; level: number; icon: IconType };
+export type Skill = { name: string; level: number; icon: IconName };
 export type SkillGroup = { category: string; skills: Skill[] };
 
 export const skillGroups: SkillGroup[] = [
   {
     category: "Core Mobile",
     skills: [
-      { name: "Flutter", level: 96, icon: Smartphone },
-      { name: "Dart", level: 95, icon: Cpu },
-      { name: "State Management", level: 92, icon: Workflow },
-      { name: "GetX", level: 93, icon: Boxes },
-      { name: "Clean Architecture", level: 90, icon: Layers },
-      { name: "Performance Optimization", level: 88, icon: Gauge },
+      { name: "Flutter", level: 96, icon: "Smartphone" },
+      { name: "Dart", level: 95, icon: "Cpu" },
+      { name: "State Management", level: 92, icon: "Workflow" },
+      { name: "GetX", level: 93, icon: "Boxes" },
+      { name: "Clean Architecture", level: 90, icon: "Layers" },
+      { name: "Performance Optimization", level: 88, icon: "Gauge" },
     ],
   },
   {
     category: "Backend & Data",
     skills: [
-      { name: "Node.js", level: 85, icon: Server },
-      { name: "Laravel", level: 80, icon: Server },
-      { name: "Firebase", level: 90, icon: Cloud },
-      { name: "MongoDB", level: 82, icon: Database },
-      { name: "REST APIs", level: 92, icon: Globe },
-      { name: "Background Services", level: 86, icon: Workflow },
+      { name: "Node.js", level: 85, icon: "Server" },
+      { name: "Laravel", level: 80, icon: "Server" },
+      { name: "Firebase", level: 90, icon: "Cloud" },
+      { name: "MongoDB", level: 82, icon: "Database" },
+      { name: "REST APIs", level: 92, icon: "Globe" },
+      { name: "Background Services", level: 86, icon: "Workflow" },
     ],
   },
   {
     category: "Product & Platform",
     skills: [
-      { name: "AI Integration", level: 84, icon: Brain },
-      { name: "Payment Integration", level: 88, icon: CreditCard },
-      { name: "Push Notifications", level: 90, icon: Bell },
-      { name: "Maps & Geofencing", level: 87, icon: MapIcon },
-      { name: "Location Tracking", level: 88, icon: Locate },
-      { name: "CI/CD", level: 80, icon: GitBranch },
+      { name: "AI Integration", level: 84, icon: "Brain" },
+      { name: "Payment Integration", level: 88, icon: "CreditCard" },
+      { name: "Push Notifications", level: 90, icon: "Bell" },
+      { name: "Maps & Geofencing", level: 87, icon: "Map" },
+      { name: "Location Tracking", level: 88, icon: "Locate" },
+      { name: "CI/CD", level: 80, icon: "GitBranch" },
     ],
   },
   {
     category: "Craft & Delivery",
     skills: [
-      { name: "UI / UX", level: 88, icon: Palette },
-      { name: "Git", level: 92, icon: GitBranch },
-      { name: "Android & iOS", level: 93, icon: Smartphone },
-      { name: "Security", level: 84, icon: ShieldCheck },
+      { name: "UI / UX", level: 88, icon: "Palette" },
+      { name: "Git", level: 92, icon: "GitBranch" },
+      { name: "Android & iOS", level: 93, icon: "Smartphone" },
+      { name: "Security", level: 84, icon: "ShieldCheck" },
     ],
   },
 ];
@@ -343,7 +308,8 @@ export type Project = {
   playStore: string;
   tech: string[];
   metrics: { label: string; value: string }[];
-  accent: string; // tailwind gradient stops
+  accent: string; // tailwind gradient stops — must be one of ACCENTS
+  imageUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -558,44 +524,44 @@ export const stats: Stat[] = [
   { value: "100", suffix: "K+", label: "Users Served" },
 ];
 
-export type Achievement = { title: string; description: string; icon: IconType };
+export type Achievement = { title: string; description: string; icon: IconName };
 
 export const achievements: Achievement[] = [
   {
     title: "Multiple Production Apps",
     description:
       "20+ apps shipped to Google Play & the App Store across fintech, HR, ecommerce, and edtech.",
-    icon: Rocket,
+    icon: "Rocket",
   },
   {
     title: "Large-Scale Deployments",
     description:
       "Architected apps serving thousands of daily users with reliable, performant experiences.",
-    icon: Gauge,
+    icon: "Gauge",
   },
   {
     title: "Enterprise Systems",
     description:
       "Delivered automation for Samsung, Unilever, Abul Khair, and ActionAid field operations.",
-    icon: Building2,
+    icon: "Building2",
   },
   {
     title: "Fintech Experience",
     description:
       "Built secure payment flows and multi-service financial platforms to fintech-grade standards.",
-    icon: CreditCard,
+    icon: "CreditCard",
   },
   {
     title: "Cross-Platform Expertise",
     description:
       "Single Flutter codebases delivering native-quality apps simultaneously on Android & iOS.",
-    icon: Smartphone,
+    icon: "Smartphone",
   },
   {
     title: "Team Leadership",
     description:
       "Led app teams as Senior Engineer & Team Lead, mentoring developers and owning roadmaps.",
-    icon: Layers,
+    icon: "Layers",
   },
 ];
 
@@ -603,7 +569,14 @@ export const achievements: Achievement[] = [
 /*                                 EDUCATION                                   */
 /* -------------------------------------------------------------------------- */
 
-export const education = [
+export type Education = {
+  degree: string;
+  institution: string;
+  period: string;
+  result: string;
+};
+
+export const education: Education[] = [
   {
     degree: "BSc in Computer Science & Engineering",
     institution: "European University of Bangladesh",
@@ -631,6 +604,7 @@ export type Testimonial = {
   email?: string;
   quote: string;
   accent: string;
+  avatarUrl?: string;
 };
 
 export const testimonials: Testimonial[] = [
@@ -659,10 +633,131 @@ export const testimonials: Testimonial[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
+/*                              CLIENTS & REACH                                */
+/* -------------------------------------------------------------------------- */
+
+export type Client = { name: string; logoUrl?: string };
+
+/** Brands & organizations I've delivered work for. */
+export const clients: Client[] = [
+  { name: "Sheba xyz" },
+  { name: "Unilever Bangladesh" },
+  { name: "Samsung Bangladesh" },
+  { name: "Regal Furniture" },
+  { name: "ActionAid" },
+  { name: "Biddabari" },
+  { name: "Twentyfive Pvt. Ltd." },
+  { name: "Smile Food" },
+  { name: "GCB" },
+  { name: "Invariant Telecom Bangladesh Ltd." },
+  { name: "Market Access Analytics & Consulting (MAAC)" },
+  { name: "UpscaleBD" },
+];
+
+export type MapLocation = { name: string; flag: string; lng: number; lat: number };
+
+/** Countries I've shipped work for. */
+export const locations: MapLocation[] = [
+  { name: "Morocco", flag: "🇲🇦", lng: -6.8498, lat: 33.9716 },
+  { name: "United Kingdom", flag: "🇬🇧", lng: -0.1276, lat: 51.5074 },
+  { name: "India", flag: "🇮🇳", lng: 77.209, lat: 28.6139 },
+  { name: "Bangladesh", flag: "🇧🇩", lng: 90.4125, lat: 23.8103 },
+  { name: "United States", flag: "🇺🇸", lng: -77.0369, lat: 38.9072 },
+];
+
+/* -------------------------------------------------------------------------- */
+/*                              SECTION HEADINGS                               */
+/* -------------------------------------------------------------------------- */
+
+export type Heading = { eyebrow: string; title: string; description: string };
+
+export const headings = {
+  experience: {
+    eyebrow: "Career Path",
+    title: "A timeline of building & shipping.",
+    description:
+      "Five-plus years across fintech, HR, ecommerce, edtech, and enterprise automation — leading teams and owning delivery.",
+  },
+  clients: {
+    eyebrow: "Trusted By",
+    title: "Brands I've worked for.",
+    description:
+      "From multinationals to fast-moving local teams — products and platforms shipped for organizations across industries.",
+  },
+  skills: {
+    eyebrow: "Capabilities",
+    title: "A toolkit honed in production.",
+    description:
+      "From pixel-perfect Flutter UI to resilient backends and AI integrations — the full stack of shipping mobile products. Tap a node to explore each domain.",
+  },
+  projects: {
+    eyebrow: "Featured Work",
+    title: "Products shipped to real users.",
+    description:
+      "Enterprise platforms, fintech apps, and consumer products live on the Play Store — built end-to-end with Flutter.",
+  },
+  achievements: {
+    eyebrow: "Impact",
+    title: "Proven across scale & industries.",
+    description:
+      "A track record of shipping reliable products and leading teams from startups to enterprise.",
+  },
+  testimonials: {
+    eyebrow: "Testimonials",
+    title: "Trusted by people who ship.",
+    description:
+      "Words from engineering leaders and peers I've built alongside.",
+  },
+  global: {
+    eyebrow: "Global Reach",
+    title: "Working across borders.",
+    description:
+      "Remote-first collaboration with teams and clients on five markets across three continents. Hover a pin to see where.",
+  },
+  contact: {
+    eyebrow: "Get in Touch",
+    title: "Let's build something exceptional.",
+    description:
+      "Have a product in mind or a team to strengthen? I'm open to senior Flutter roles, consulting, and ambitious builds.",
+  },
+} satisfies Record<string, Heading>;
+
+export type Headings = typeof headings;
+
+/**
+ * Gradient presets for project and testimonial accents. Tailwind only emits
+ * classes it can see in source, so accents must be picked from this list.
+ */
+export const ACCENTS = [
+  "from-blue-500 via-indigo-500 to-purple-500",
+  "from-indigo-500 via-blue-500 to-cyan-500",
+  "from-cyan-500 via-sky-500 to-blue-500",
+  "from-violet-500 via-purple-500 to-fuchsia-500",
+  "from-emerald-500 via-teal-500 to-cyan-500",
+  "from-orange-500 via-amber-500 to-yellow-500",
+  "from-pink-500 via-rose-500 to-red-500",
+  "from-sky-500 via-blue-500 to-indigo-500",
+  "from-teal-500 via-emerald-500 to-green-500",
+  "from-amber-500 via-yellow-500 to-lime-500",
+  "from-fuchsia-500 via-purple-500 to-violet-500",
+  "from-blue-500 to-indigo-500",
+  "from-violet-500 to-fuchsia-500",
+  "from-emerald-500 to-teal-500",
+  "from-orange-500 to-rose-500",
+] as const;
+
+/* -------------------------------------------------------------------------- */
 /*                                 SEO META                                    */
 /* -------------------------------------------------------------------------- */
 
-export const siteMeta = {
+export type SiteMeta = {
+  title: string;
+  description: string;
+  url: string;
+  keywords: string[];
+};
+
+export const siteMeta: SiteMeta = {
   title: "Sifat Hasan — Senior Flutter Developer & Software Engineer",
   description:
     "Senior Flutter Developer with 5+ years building high-performance, cross-platform mobile apps for fintech, HR, ecommerce, and enterprise clients including Samsung, Unilever & Abul Khair.",

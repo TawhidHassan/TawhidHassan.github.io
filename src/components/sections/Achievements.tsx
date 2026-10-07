@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { achievements, stats } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
+import { Icon } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
@@ -9,6 +10,7 @@ import { CountUp } from "@/components/ui/CountUp";
 import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 export function Achievements() {
+  const { achievements, stats, headings } = useSiteData();
   return (
     <section id="achievements" className="relative py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
@@ -41,9 +43,7 @@ export function Achievements() {
 
         <div className="mt-8 sm:mt-24">
           <SectionHeading
-            eyebrow="Impact"
-            title="Proven across scale & industries."
-            description="A track record of shipping reliable products and leading teams from startups to enterprise."
+            {...headings.achievements}
           />
 
           <motion.div
@@ -58,7 +58,7 @@ export function Achievements() {
                 <GlowCard className="h-full p-4 sm:p-6">
                   <div className="flex h-full flex-col gap-2.5 sm:gap-4">
                     <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-3/20 text-accent sm:h-12 sm:w-12 sm:rounded-2xl">
-                      <a.icon size={18} />
+                      <Icon name={a.icon} size={18} />
                     </span>
                     <h3 className="text-sm font-semibold sm:text-lg">
                       {a.title}

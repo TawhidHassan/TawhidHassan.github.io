@@ -2,14 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Sora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { Cursor } from "@/components/ui/Cursor";
-import { QuantumField } from "@/components/three/QuantumField";
-import { Grain } from "@/components/ui/Grain";
-import { ScrollProgress } from "@/components/ui/ScrollProgress";
-import { Preloader } from "@/components/layout/Preloader";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { siteMeta, profile } from "@/lib/data";
 
 const inter = Inter({
@@ -112,17 +104,7 @@ export default function RootLayout({
         />
       </head>
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
-        <ThemeProvider>
-          <Preloader />
-          <QuantumField />
-          <SmoothScroll />
-          <ScrollProgress />
-          <Cursor />
-          <Grain />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

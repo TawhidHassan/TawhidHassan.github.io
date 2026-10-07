@@ -1,46 +1,53 @@
 "use client";
 
-import { skillGroups, skillMarquee, type SkillGroup } from "@/lib/data";
+import { useMemo } from "react";
+import type { SkillGroup } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
+import { getIcon } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 
 const avg = (g: SkillGroup) =>
-  Math.round(g.skills.reduce((a, s) => a + s.level, 0) / g.skills.length);
-
-/** Map skill categories onto the orbital timeline's node shape. */
-const skillsTimeline = skillGroups.map((g, i) => {
-  const energy = avg(g);
-  const id = i + 1;
-  const relatedIds = [id - 1, id + 1].filter(
-    (n) => n >= 1 && n <= skillGroups.length
-  );
-  return {
-    id,
-    title: g.category,
-    date: `${g.skills.length} skills`,
-    content: g.skills.map((s) => s.name).join(" · "),
-    category: g.category,
-    icon: g.skills[0].icon,
-    relatedIds,
-    status:
-      energy >= 90 ? "completed" : energy >= 82 ? "in-progress" : "pending",
-    energy,
-  } as const;
-});
-
-
+  g.skills.length
+    ? Math.round(g.skills.reduce((a, s) => a + s.level, 0) / g.skills.length)
+    : 0;
 
 export function Skills() {
+  const { skillGroups, skillMarquee, headings } = useSiteData();
+
+  // Map skill categories onto the orbital timeline's node shape.
+  const skillsTimeline = useMemo(
+    () =>
+      skillGroups.map((g, i) => {
+        const energy = avg(g);
+        const id = i + 1;
+        const relatedIds = [id - 1, id + 1].filter(
+          (n) => n >= 1 && n <= skillGroups.length
+        );
+        return {
+          id,
+          title: g.category,
+          date: `${g.skills.length} skills`,
+          content: g.skills.map((s) => s.name).join(" · "),
+          category: g.category,
+          icon: getIcon(g.skills[0]?.icon ?? ""),
+          relatedIds,
+          status:
+            energy >= 90 ? "completed" : energy >= 82 ? "in-progress" : "pending",
+          energy,
+        } as const;
+      }),
+    [skillGroups]
+  );
+
   return (
     <section id="skills" className="relative overflow-hidden py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Capabilities"
-          title="A toolkit honed in production."
-          description="From pixel-perfect Flutter UI to resilient backends and AI integrations — the full stack of shipping mobile products. Tap a node to explore each domain."
+          {...headings.skills}
         />
       </div>
 

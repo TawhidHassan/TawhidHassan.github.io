@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { Quote, Mail } from "lucide-react";
-import { testimonials } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
@@ -11,15 +11,14 @@ import { Magnetic } from "@/components/ui/MagneticButton";
 import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 export function Testimonials() {
+  const { testimonials, headings } = useSiteData();
   return (
     <section id="testimonials" className="relative py-10 sm:py-28 lg:py-36">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Testimonials"
-          title="Trusted by people who ship."
-          description="Words from engineering leaders and peers I've built alongside."
+          {...headings.testimonials}
         />
 
         <motion.div
@@ -50,11 +49,20 @@ export function Testimonials() {
 
                   {/* author */}
                   <div className="mt-5 flex items-center gap-3 border-t border-card-border pt-4 sm:mt-7 sm:gap-4 sm:pt-6">
-                    <span
-                      className={`grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br ${t.accent} text-sm font-bold text-white`}
-                    >
-                      {t.initials}
-                    </span>
+                    {t.avatarUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={t.avatarUrl}
+                        alt={t.name}
+                        className="h-12 w-12 shrink-0 rounded-full object-cover"
+                      />
+                    ) : (
+                      <span
+                        className={`grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br ${t.accent} text-sm font-bold text-white`}
+                      >
+                        {t.initials}
+                      </span>
+                    )}
                     <div className="min-w-0">
                       <div className="font-semibold">{t.name}</div>
                       <div className="text-sm text-muted">

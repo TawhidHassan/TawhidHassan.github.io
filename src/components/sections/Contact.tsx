@@ -3,39 +3,42 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Check, Download, Loader2, Send } from "lucide-react";
-import { contactDetails, profile, socials } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
+import { Icon } from "@/lib/icons";
+import { contactDetailsFor } from "@/lib/site-data";
+import { supabase } from "@/lib/supabase";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { MagneticButton, Magnetic } from "@/components/ui/MagneticButton";
 import { Reveal } from "@/components/ui/Reveal";
 
-type Status = "idle" | "sending" | "sent";
+type Status = "idle" | "sending" | "sent" | "error";
 
 export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const { profile, socials, headings } = useSiteData();
+  const contactDetails = contactDetailsFor(profile);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (status !== "idle") return;
+    if (status === "sending" || status === "sent") return;
     setStatus("sending");
 
-    // Compose an email the user can send from their client. Swap this for an
-    // API route / form service (Resend, Formspree, etc.) when a backend exists.
-    const subject = encodeURIComponent(`Portfolio enquiry from ${form.name}`);
-    const body = encodeURIComponent(
-      `${form.message}\n\n— ${form.name}\n${form.email}`
-    );
+    const { error } = await supabase.from("messages").insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    });
 
-    setTimeout(() => {
-      window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-      setStatus("sent");
-      setTimeout(() => {
-        setStatus("idle");
-        setForm({ name: "", email: "", message: "" });
-      }, 4000);
-    }, 900);
+    if (error) {
+      setStatus("error");
+      return;
+    }
+    setStatus("sent");
+    setForm({ name: "", email: "", message: "" });
+    setTimeout(() => setStatus("idle"), 4000);
   };
 
   const field =
@@ -47,9 +50,7 @@ export function Contact() {
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Get in Touch"
-          title="Let's build something exceptional."
-          description="Have a product in mind or a team to strengthen? I'm open to senior Flutter roles, consulting, and ambitious builds."
+          {...headings.contact}
         />
 
         <div className="mt-6 grid gap-4 sm:mt-16 sm:gap-6 lg:grid-cols-[0.9fr_1.1fr]">
@@ -66,7 +67,7 @@ export function Contact() {
                     const inner = (
                       <div className="flex items-center gap-4">
                         <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent sm:h-11 sm:w-11">
-                          <c.icon size={18} />
+                          <Icon name={c.icon} size={18} />
                         </span>
                         <div className="min-w-0">
                           <div className="text-xs uppercase tracking-wide text-muted">
@@ -97,7 +98,7 @@ export function Contact() {
                 </div>
 
                 <a
-                  href="/TawhidHasanSifat_5_plus_experience_2026.pdf"
+                  href={profile.cvUrl}
                   download
                   className="mt-5 inline-flex items-center gap-2 rounded-xl border border-card-border bg-background-2/50 px-4 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent sm:mt-7"
                 >
@@ -115,7 +116,7 @@ export function Contact() {
                         aria-label={s.label}
                         className="grid h-11 w-11 place-items-center rounded-full glass text-muted transition-colors hover:text-accent"
                       >
-                        <s.icon size={17} />
+                        <Icon name={s.icon} size={17} />
                       </a>
                     </Magnetic>
                   ))}
@@ -189,7 +190,7 @@ export function Contact() {
 
                 <MagneticButton
                   type="submit"
-                  disabled={status !== "idle"}
+                  disabled={status === "sending" || status === "sent"}
                   icon={
                     status === "sending" ? (
                       <Loader2 size={16} className="animate-spin" />
@@ -210,7 +211,9 @@ export function Contact() {
                       {status === "sending"
                         ? "Sending…"
                         : status === "sent"
-                        ? "Message ready!"
+                        ? "Message sent!"
+                        : status === "error"
+                        ? "Failed — try again"
                         : "Send Message"}
                     </motion.span>
                   </AnimatePresence>

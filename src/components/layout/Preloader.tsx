@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
 
 /** Boot lines that tick past as the counter climbs — one per 25%. */
 const BOOT_LINES = [
@@ -19,6 +20,7 @@ const BOOT_LINES = [
 export function Preloader() {
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);
+  const { profile } = useSiteData();
 
   useEffect(() => {
     const start = performance.now();
@@ -54,8 +56,8 @@ export function Preloader() {
             className="relative grid h-24 w-24 place-items-center overflow-hidden rounded-3xl glass"
           >
             <Image
-              src="/sifat.png"
-              alt="Sifat"
+              src={profile.photoUrl}
+              alt={profile.name}
               fill
               sizes="96px"
               priority

@@ -3,7 +3,8 @@
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight, Play } from "lucide-react";
-import { projects, type Project } from "@/lib/data";
+import type { Project } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
@@ -31,13 +32,24 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               project.accent
             )}
           >
+            {project.imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={project.imageUrl}
+                alt={project.name}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            )}
             <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_0%_0%,rgba(255,255,255,0.25),transparent_45%)]" />
             <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/20 blur-2xl" />
-            <span className="relative text-xl font-bold tracking-tight text-white drop-shadow-sm sm:text-2xl font-[family-name:var(--font-display)]">
-              {project.name}
-            </span>
+            {!project.imageUrl && (
+              <span className="relative text-xl font-bold tracking-tight text-white drop-shadow-sm sm:text-2xl font-[family-name:var(--font-display)]">
+                {project.name}
+              </span>
+            )}
             <span className="hud-label absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-black/20 text-[10px] font-semibold text-white backdrop-blur">
-              0{index + 1}
+              {String(index + 1).padStart(2, "0")}
             </span>
             <HudCorners className="opacity-40" size={14} />
           </div>
@@ -113,6 +125,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 export function Projects() {
   const rail = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const { projects, headings } = useSiteData();
 
   // Track which card sits in the center of the mobile carousel.
   const onRailScroll = () => {
@@ -143,9 +156,7 @@ export function Projects() {
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Featured Work"
-          title="Products shipped to real users."
-          description="Enterprise platforms, fintech apps, and consumer products live on the Play Store — built end-to-end with Flutter."
+          {...headings.projects}
         />
 
         {/* Mobile: edge-to-edge snap carousel (touch-pan-x keeps the gesture

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { navLinks, profile } from "@/lib/data";
+import { navLinks } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Magnetic } from "@/components/ui/MagneticButton";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
   const { scrollY } = useScroll();
+  const { profile } = useSiteData();
 
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24));
 
@@ -56,8 +58,8 @@ export function Navbar() {
             >
               <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-xl ring-1 ring-card-border">
                 <Image
-                  src="/sifat.png"
-                  alt="Sifat"
+                  src={profile.photoUrl}
+                  alt={profile.name}
                   fill
                   sizes="36px"
                   className="object-cover"

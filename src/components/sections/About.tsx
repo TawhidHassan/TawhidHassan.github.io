@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
-import { about, education, profile } from "@/lib/data";
+import { useSiteData } from "@/components/providers/SiteDataProvider";
+import { Icon } from "@/lib/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import { GlowCard } from "@/components/ui/GlowCard";
@@ -14,6 +15,7 @@ import { cn } from "@/lib/utils";
 export function About() {
   // Mobile-only "read more" — the full story is always visible from sm: up.
   const [expanded, setExpanded] = useState(false);
+  const { about, highlights, education, profile } = useSiteData();
 
   return (
     <section id="about" className="relative py-10 sm:py-28 lg:py-36">
@@ -90,12 +92,12 @@ export function About() {
             viewport={viewportOnce}
             className="perspective grid gap-3 sm:grid-cols-2 sm:gap-5"
           >
-            {about.highlights.map((h) => (
+            {highlights.map((h) => (
               <motion.div key={h.title} variants={fadeInUp}>
                 <GlowCard className="h-full p-4 sm:p-6">
                   <div className="flex h-full items-start gap-3 sm:flex-col sm:gap-4">
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent sm:h-12 sm:w-12 sm:rounded-2xl">
-                      <h.icon size={20} />
+                      <Icon name={h.icon} size={20} />
                     </span>
                     <div>
                       <h3 className="text-base font-semibold sm:text-lg">
