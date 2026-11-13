@@ -12,7 +12,7 @@ import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 export function Achievements() {
   const { achievements, stats, headings } = useSiteData();
   return (
-    <section id="achievements" className="relative py-10 sm:py-28 lg:py-36">
+    <section id="achievements" className="relative py-12 sm:py-20 lg:py-24">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
@@ -43,7 +43,8 @@ export function Achievements() {
 
         <div className="mt-8 sm:mt-24">
           <SectionHeading
-            {...headings.achievements}
+            index="06"
+          {...headings.achievements}
           />
 
           <motion.div

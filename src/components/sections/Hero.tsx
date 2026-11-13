@@ -89,11 +89,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease, delay: 0.4 }}
-            className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:mt-6 sm:text-6xl lg:text-7xl font-[family-name:var(--font-display)]"
+            className="mt-4 font-semibold tracking-tight sm:mt-6 font-[family-name:var(--font-display)]"
           >
-            Hi, I&apos;m{" "}
+            <span className="block text-lg font-medium text-muted sm:text-2xl">
+              Hi, I&apos;m
+            </span>
             <span
-              className="glitch text-flow"
+              className="glitch text-flow mt-1 block w-fit whitespace-nowrap pb-1 text-5xl leading-[1.05] sm:text-7xl xl:text-[5.5rem]"
               data-text={profile.name}
             >
               {profile.name}

@@ -109,11 +109,12 @@ export function Experience() {
   );
 
   return (
-    <section id="experience" className="relative py-10 sm:py-28 lg:py-36">
+    <section id="experience" className="relative py-12 sm:py-20 lg:py-24">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
+          index="02"
           {...headings.experience}
         />
 

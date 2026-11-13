@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navLinks } from "@/lib/data";
 import { useSiteData } from "@/components/providers/SiteDataProvider";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -48,7 +48,9 @@ export function Navbar() {
         <nav
           className={cn(
             "relative flex w-full max-w-5xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-500 sm:px-6",
-            scrolled ? "glass neon-ring neon-ring--on shadow-lg shadow-black/5" : "bg-transparent"
+            scrolled
+              ? "nav-plate neon-ring neon-ring--on shadow-xl shadow-black/20"
+              : "border border-transparent bg-transparent"
           )}
         >
           <Magnetic>
@@ -74,12 +76,15 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="relative rounded-full px-4 py-2 text-sm text-muted transition-colors hover:text-foreground"
+                className={cn(
+                  "relative rounded-full px-3.5 py-2 text-sm transition-colors hover:text-foreground",
+                  active === link.href ? "text-foreground" : "text-muted"
+                )}
               >
                 {active === link.href && (
                   <motion.span
                     layoutId="nav-active"
-                    className="absolute inset-0 rounded-full bg-foreground/5 ring-1 ring-card-border"
+                    className="absolute inset-0 rounded-full bg-accent/10 ring-1 ring-accent/30"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
@@ -89,6 +94,13 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
+            <a
+              href="#contact"
+              className="hidden items-center gap-2 rounded-full bg-gradient-to-r from-accent via-accent-2 to-accent-3 px-4 py-2 text-sm font-medium text-white shadow-[0_6px_24px_-8px_rgba(var(--accent-rgb),0.7)] transition-opacity duration-200 hover:opacity-90 lg:inline-flex"
+            >
+              Let&apos;s talk
+              <ArrowUpRight size={15} />
+            </a>
             <ThemeToggle />
             <button
               onClick={() => setOpen((v) => !v)}

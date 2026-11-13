@@ -81,7 +81,7 @@ export function GlowCard({
       }
       whileHover={tilt && isDesktop ? { z: 30 } : undefined}
       className={cn(
-        "group neon-ring holo depth-shadow relative overflow-hidden rounded-3xl border border-card-border bg-card backdrop-blur-xl",
+        "group neon-ring holo depth-shadow relative overflow-hidden rounded-3xl border border-card-border card-surface backdrop-blur-xl",
         className
       )}
     >

@@ -37,11 +37,12 @@ export function WorldMap() {
   }, [showMap]);
 
   return (
-    <section id="global" className="relative overflow-hidden py-10 sm:py-28 lg:py-36">
+    <section id="global" className="relative overflow-hidden py-12 sm:py-20 lg:py-24">
       <BackgroundPaths />
 
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHeading
+          index="08"
           {...headings.global}
         />
 

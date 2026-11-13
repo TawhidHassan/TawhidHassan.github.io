@@ -6,6 +6,8 @@ import { viewportOnce } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
+  /** Two-digit section number shown ahead of the eyebrow, e.g. "03". */
+  index?: string;
   eyebrow: string;
   title: string;
   description?: string;
@@ -14,6 +16,7 @@ type SectionHeadingProps = {
 };
 
 export function SectionHeading({
+  index,
   eyebrow,
   title,
   description,
@@ -34,13 +37,18 @@ export function SectionHeading({
         viewport={viewportOnce}
         className="hud-label neon-ring neon-ring--on relative inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[11px] font-medium text-accent"
       >
-        <span className="text-accent/50">[</span>
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
-          <span className="relative h-1.5 w-1.5 rounded-full bg-accent" />
-        </span>
+        {index ? (
+          <>
+            <span className="text-foreground/80">{index}</span>
+            <span className="h-3 w-px bg-accent/40" />
+          </>
+        ) : (
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
+            <span className="relative h-1.5 w-1.5 rounded-full bg-accent" />
+          </span>
+        )}
         {eyebrow}
-        <span className="text-accent/50">]</span>
       </motion.span>
 
       <div

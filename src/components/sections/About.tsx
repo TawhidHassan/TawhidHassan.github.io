@@ -18,11 +18,12 @@ export function About() {
   const { about, highlights, education, profile } = useSiteData();
 
   return (
-    <section id="about" className="relative py-10 sm:py-28 lg:py-36">
+    <section id="about" className="relative py-12 sm:py-20 lg:py-24">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
+          index="01"
           eyebrow="About Me"
           title={about.heading}
           align="left"

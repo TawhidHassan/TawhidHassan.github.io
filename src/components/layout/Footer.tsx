@@ -91,6 +91,16 @@ export function Footer() {
           </Magnetic>
         </motion.div>
       </div>
+
+      {/* Signature wordmark — hollow lettering that fades into the page edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none relative -mt-2 select-none overflow-hidden px-4 [mask-image:linear-gradient(to_bottom,#000_25%,transparent_95%)]"
+      >
+        <p className="text-outline whitespace-nowrap text-center text-[13vw] font-extrabold uppercase leading-[0.85] tracking-tight font-[family-name:var(--font-display)]">
+          {profile.name}
+        </p>
+      </div>
     </footer>
   );
 }

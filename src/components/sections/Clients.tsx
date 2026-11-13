@@ -8,11 +8,12 @@ import { CustomersSection } from "@/components/ui/customers-section";
 export function Clients() {
   const { clients, headings } = useSiteData();
   return (
-    <section id="clients" className="relative py-10 sm:py-28 lg:py-36">
+    <section id="clients" className="relative py-12 sm:py-20 lg:py-24">
       <BackgroundPaths />
 
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
+          index="03"
           {...headings.clients}
         />
 

@@ -180,7 +180,7 @@ export default function RadialOrbitalTimeline({
 
   return (
     <div
-      className="w-full h-[320px] sm:h-[520px] md:h-[600px] flex flex-col items-center justify-center bg-background overflow-hidden"
+      className="relative w-full h-[320px] sm:h-[500px] md:h-[560px] flex flex-col items-center justify-center overflow-hidden"
       ref={containerRef}
       onClick={handleContainerClick}
     >
@@ -202,9 +202,22 @@ export default function RadialOrbitalTimeline({
             <div className="w-8 h-8 rounded-full bg-background/80 backdrop-blur-md"></div>
           </div>
 
+          {/* soft core glow + concentric guide rings */}
           <div
-            className="absolute rounded-full border border-foreground/10"
+            className="pointer-events-none absolute rounded-full bg-[radial-gradient(circle,rgba(var(--accent-rgb),0.2),transparent_65%)]"
+            style={{ width: radius * 2.6, height: radius * 2.6 }}
+          ></div>
+          <div
+            className="pointer-events-none absolute rounded-full border border-dashed border-accent/20 animate-spin-slow"
+            style={{ width: radius * 1.2, height: radius * 1.2 }}
+          ></div>
+          <div
+            className="pointer-events-none absolute rounded-full border border-accent/25"
             style={{ width: radius * 2, height: radius * 2 }}
+          ></div>
+          <div
+            className="pointer-events-none absolute rounded-full border border-foreground/5"
+            style={{ width: radius * 2.5, height: radius * 2.5 }}
           ></div>
 
           {timelineData.map((item, index) => {
@@ -273,7 +286,7 @@ export default function RadialOrbitalTimeline({
 
                 <div
                   className={`
-                  absolute top-12  whitespace-nowrap
+                  absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap
                   text-xs font-semibold tracking-wider
                   transition-all duration-300
                   ${isExpanded ? "text-foreground scale-125" : "text-muted"}
